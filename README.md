@@ -1,47 +1,12 @@
-# AI Glossary Widget
+# AI Glossary
 
-A comprehensive offline AI reference with **183 concepts** across foundations, models, training, agents, security, evaluation, operations, and governance. Available as both a compact desktop widget and a fully static webpage—no dependencies, no network, no tracking.
+A comprehensive static AI reference with **183 concepts** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
 
-## Two Ways to Use
+## Website
 
-### Desktop Widget (Python + Tk)
+Visit the published site at [vinayak-g87.github.io/ai-glossary](https://vinayak-g87.github.io/ai-glossary/). The self-contained `index.html` can also be opened directly for offline use.
 
-**Run immediately:**
-```bash
-./run.sh
-```
-
-Or run directly:
-```bash
-python3 app.py
-```
-
-Requires Python 3.10+ and Tk 8.6+ (usually pre-installed).
-
-**Add to Linux application menu:**
-```bash
-./install.sh
-```
-
-Remove with:
-```bash
-rm "${XDG_DATA_HOME:-$HOME/.local/share}/applications/ai-glossary.desktop"
-```
-
-**Controls:**
-- Type to search terms, acronyms, meanings, categories, and related concepts.
-- Press `Down` from search to browse results.
-- Press `Ctrl+F` or `Ctrl+L` to return to search.
-- Press `Escape` to clear search, then category filter.
-- Press `Ctrl+R` for a random concept.
-- Toggle **Keep on top** to pin or unpin the window.
-- Hover over any related term to click and navigate.
-
-### Static Webpage
-
-**Open `index.html` in any browser.** Works fully offline once loaded.
-
-**Features:**
+Features:
 - Search by term, alias, meaning, or category.
 - Real-time result filtering.
 - Click related terms to jump to them.
@@ -62,9 +27,20 @@ rm "${XDG_DATA_HOME:-$HOME/.local/share}/applications/ai-glossary.desktop"
 
 Each entry includes a clear definition, practical example, related concepts, and why the concept matters.
 
-## Test & Validate
+## Future Desktop Version
+
+The earlier Python and Tk desktop implementation is retained in `future/` for possible later development. It is not required by the GitHub Pages site.
+
+Run it with Python 3.10+ and Tk 8.6+:
 
 ```bash
+./future/run.sh
+```
+
+Run its tests with:
+
+```bash
+cd future
 python3 -m unittest -v test_glossary.py
 ```
 
