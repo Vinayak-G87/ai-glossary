@@ -4,6 +4,12 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
     let selectedIndex = -1;
 
     const additionalEntries = [
+      {"term":"Speculative Decoding","category":"Operations","meaning":"An inference technique in which a smaller, faster model proposes several tokens and a larger model verifies them in parallel.","example":"A serving system uses a small draft model to suggest the next several tokens, while the larger model checks those suggestions in one pass to reduce response time.","related":["Inference","Latency","Large Language Model (LLM)"],"aliases":[],"whyItMatters":"Speculative decoding can accelerate generation without retraining the larger model or changing its output distribution."},
+      {"term":"Graph of Thought","category":"Prompting","meaning":"A prompting approach that represents reasoning as a graph, allowing a model to explore, connect, and revisit multiple lines of thought.","example":"A planning task can branch into several possible approaches and connect useful ideas from different branches before producing an answer.","related":["Tree of Thought","Chain of Thought","Prompting"],"aliases":["GoT"],"whyItMatters":"Graph structures can represent relationships between ideas that do not fit into a single linear chain or tree."},
+      {"term":"Tree of Thought","category":"Prompting","meaning":"A prompting approach that has a model explore multiple reasoning paths as branches and evaluate them before selecting an answer.","example":"For a puzzle, the model considers several candidate moves, evaluates each branch, and continues with the most promising one.","related":["Graph of Thought","Chain of Thought","Prompting"],"aliases":["ToT"],"whyItMatters":"Exploring and comparing alternatives can help with tasks that require planning or multi-step reasoning."},
+      {"term":"GEval","category":"Evals","meaning":"A model-based evaluation method that uses a language model and an explicit rubric or criteria to assess generated outputs.","example":"An evaluator scores a response for clarity and completeness using a rubric and the original question as inputs.","related":["LLM-as-a-Judge","Evaluation","Rubric"],"aliases":["G-Eval","Ge Eval"],"whyItMatters":"Rubric-based model evaluation can measure qualities that are difficult to capture with exact-match or keyword metrics."},
+      {"term":"DAG","category":"Evals","meaning":"Deep Acyclic Graph: an evaluation metric that uses directed, non-cyclic task and judgement nodes to apply branching criteria and map outcomes to scores.","example":"An evaluation first checks whether required facts are present, then follows a separate quality-scoring path only when that check passes.","related":["GEval","Evaluation","Evaluation Pipeline"],"aliases":["Deep Acyclic Graph","Directed Acyclic Graph"],"whyItMatters":"A DAG makes conditional evaluation logic and score mapping explicit while still allowing LLM-based judgements."},
+      {"term":"QAG","category":"Evals","meaning":"Question Answer Generation: an evaluation approach that generates questions from source content and checks whether a system answers them correctly.","example":"Questions are generated from a policy document, and the system is evaluated on whether its answers match the supported facts.","related":["Evaluation","Question Answering","Ground Truth"],"aliases":["Question Answer Generation"],"whyItMatters":"Generated question sets can expand evaluation coverage when manually authored test questions are limited."},
       {"term":"Faithfulness","category":"RAG Evaluation","meaning":"How well the claims in a generated answer are supported by the retrieved context.","example":"If the retrieved notes say the deadline is two weeks, an answer that says two weeks is faithful; saying three weeks lowers faithfulness.","related":["Groundedness","RAG","Hallucination"],"aliases":[],"whyItMatters":"A RAG system can retrieve the right evidence and still generate unsupported claims."},
       {"term":"Groundedness","category":"RAG Evaluation","meaning":"Whether a generated response stays anchored to the supplied context instead of inventing information.","example":"If the retrieved policy only mentions a 30-day return window, the answer should not invent a 60-day exception.","related":["Faithfulness","Grounding","Hallucination"],"aliases":[],"whyItMatters":"Grounded responses are easier to verify and safer to use in knowledge-heavy applications."},
       {"term":"Answer Relevance","category":"RAG Evaluation","meaning":"How directly the generated answer addresses the user's question.","example":"If the user asks for the required deadline, an answer that only repeats summary text without naming the deadline has low answer relevance.","related":["Context Relevance","RAG","Correctness"],"aliases":["Answer Relevancy"],"whyItMatters":"A factually correct answer can still be poor if it does not answer what the user asked."},
@@ -114,6 +120,7 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
       owaspSupplyChain: ["OWASP LLM03: Supply Chain", "https://genai.owasp.org/llmrisk/llm032025-supply-chain/"],
       owaspVectorWeaknesses: ["OWASP LLM08: Vector and Embedding Weaknesses", "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/"],
       pytorchTensors: ["PyTorch: Tensors", "https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html"],
+      pytorchSpeculativeDecoding: ["A Hitchhiker's Guide to Speculative Decoding | PyTorch", "https://pytorch.org/blog/hitchhikers-guide-speculative-decoding/"],
       stanfordTuringTest: ["The Turing Test | Stanford Encyclopedia of Philosophy", "https://plato.stanford.edu/entries/turing-test/"]
     };
 
@@ -209,6 +216,30 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
 };
 
     const exactReferenceByTerm = {
+      "Speculative Decoding": [
+        "Fast Inference from Transformers via Speculative Decoding",
+        "https://arxiv.org/abs/2211.17192"
+      ],
+      "Graph of Thought": [
+        "Graph of Thoughts: Solving Elaborate Problems with Large Language Models",
+        "https://arxiv.org/abs/2308.09687"
+      ],
+      "Tree of Thought": [
+        "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+        "https://arxiv.org/abs/2305.10601"
+      ],
+      "GEval": [
+        "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment",
+        "https://arxiv.org/abs/2303.16634"
+      ],
+      "DAG": [
+        "DeepEval: DAG Metric",
+        "https://deepeval.com/docs/metrics-dag"
+      ],
+      "QAG": [
+        "Explicit Diversity Conditions for Effective Question Answer Generation with Large Language Models",
+        "https://arxiv.org/abs/2406.17990"
+      ],
       "Chain of Thought": [
             "Chain-of-Thought Prompting Elicits Reasoning",
             "https://arxiv.org/abs/2201.11903"
@@ -323,6 +354,7 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
       "Backpropagation": ["deepLearning", "ibmNeuralNetworks"],
       "Benchmark": ["aiRmf"],
       "Chain of Thought": ["arxivCoT", "azureOpenAiPromptEngineering"],
+      "Speculative Decoding": ["pytorchSpeculativeDecoding"],
       "Chunking": ["azureChunking", "azureRag"],
       "Classification": ["ibmClassification", "ibmSupervisedLearning"],
       "Context Window": ["ibmLlm", "azureOpenAiPromptEngineering"],
