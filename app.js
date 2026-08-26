@@ -788,6 +788,20 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
 
     function bindEvents() {
       const searchInput = document.getElementById('searchInput');
+      const editorialNote = document.querySelector('.editorial-note');
+      const editorialButton = editorialNote.querySelector('button');
+
+      editorialButton.addEventListener('click', () => {
+        const isOpen = editorialNote.classList.toggle('is-open');
+        editorialButton.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      document.addEventListener('click', event => {
+        if (!editorialNote.contains(event.target)) {
+          editorialNote.classList.remove('is-open');
+          editorialButton.setAttribute('aria-expanded', 'false');
+        }
+      });
 
       searchInput.addEventListener('input', updateResults);
       document.getElementById('categorySelect').addEventListener('change', updateResults);
@@ -808,6 +822,13 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
 
       document.addEventListener('keydown', (e) => {
         if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+        if (e.key === 'Escape' && editorialNote.classList.contains('is-open')) {
+          editorialNote.classList.remove('is-open');
+          editorialButton.setAttribute('aria-expanded', 'false');
+          editorialButton.focus();
+          return;
+        }
 
         const activeElement = document.activeElement;
         const isNativeControl = activeElement instanceof HTMLButtonElement
