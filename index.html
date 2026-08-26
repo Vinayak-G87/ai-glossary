@@ -7,20 +7,16 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg0: #090d12;
-      --bg1: #111820;
-      --panel: #151d26;
-      --surface: #1b2530;
-      --surface-raised: #222e3a;
-      --ink: #f1f5f7;
-      --muted: #9eacb8;
-      --line: rgba(184, 204, 219, 0.16);
-      --cyan: #56d6e9;
-      --teal: #57d3ad;
-      --amber: #f4b860;
-      --active: #1c3540;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
-      --radius: 16px;
+      --black: #090a08;
+      --panel: #11120f;
+      --surface: #181a16;
+      --surface-raised: #22241e;
+      --ink: #f3f1e8;
+      --muted: #9b9d92;
+      --line: rgba(243, 241, 232, 0.16);
+      --accent: #c7ff3d;
+      --accent-soft: rgba(199, 255, 61, 0.10);
+      --active: #20251a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,96 +27,94 @@
       overflow: hidden;
       min-height: 100vh;
       color: var(--ink);
-      font-family: "Segoe UI Variable", "Bahnschrift", "Trebuchet MS", sans-serif;
+      font-family: "Aptos", "Trebuchet MS", sans-serif;
       background:
-        linear-gradient(rgba(86, 214, 233, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(86, 214, 233, 0.025) 1px, transparent 1px),
-        linear-gradient(135deg, var(--bg0), var(--bg1));
-      background-size: 28px 28px, 28px 28px, auto;
-      padding: 14px;
+        linear-gradient(rgba(243, 241, 232, 0.035) 1px, transparent 1px),
+        var(--black);
+      background-size: 100% 48px, auto;
     }
 
     .shell {
       width: 100%;
-      height: calc(100vh - 28px);
-      height: calc(100dvh - 28px);
-      margin: 0 auto;
-      border: 1px solid var(--line);
-      border-radius: 24px;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
       display: grid;
       grid-template-rows: auto minmax(0, 1fr);
-      backdrop-filter: blur(8px);
       background: var(--panel);
-      box-shadow: var(--shadow);
-      animation: boot 700ms ease both;
+      animation: boot 600ms cubic-bezier(.2, .8, .2, 1) both;
     }
 
     .hero {
-      padding: 20px;
+      position: relative;
+      padding: 22px 28px 24px;
       border-bottom: 1px solid var(--line);
-      background: linear-gradient(115deg, rgba(86, 214, 233, 0.10), rgba(244, 184, 96, 0.08));
+      background:
+        radial-gradient(circle at 88% 20%, rgba(199, 255, 61, 0.08), transparent 24%),
+        var(--black);
     }
 
     .badge {
       display: inline-block;
-      border: 1px solid rgba(86, 214, 233, 0.42);
-      border-radius: 999px;
-      padding: 5px 11px;
-      font-size: 0.74rem;
+      border-bottom: 1px solid var(--accent);
+      padding: 0 0 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--cyan);
-      background: rgba(86, 214, 233, 0.08);
+      letter-spacing: 0.16em;
+      color: var(--accent);
     }
 
     h1 {
-      margin-top: 10px;
-      font-family: "Bahnschrift", "Segoe UI Variable", sans-serif;
-      font-size: clamp(1.3rem, 2.7vw, 2rem);
-      letter-spacing: 0.02em;
-      line-height: 1.18;
+      max-width: 800px;
+      margin-top: 12px;
+      font-family: "Arial Black", "Aptos Display", sans-serif;
+      font-size: clamp(2rem, 4.2vw, 4.5rem);
+      font-weight: 900;
+      line-height: 0.92;
     }
 
     .subtitle {
-      margin-top: 8px;
+      margin-top: 12px;
       color: var(--muted);
-      font-size: 0.96rem;
+      font-size: 0.9rem;
     }
 
     .controls {
-      margin-top: 14px;
+      margin-top: 20px;
       display: grid;
-      grid-template-columns: 1fr 180px 110px 110px;
-      gap: 10px;
+      grid-template-columns: 1fr 180px 104px 104px;
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
     }
 
     input, select, button {
-      height: 44px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
+      height: 46px;
+      min-width: 0;
+      border: 0;
+      border-radius: 0;
+      background: var(--black);
       color: var(--ink);
       font: inherit;
-      padding: 0 12px;
-      transition: 150ms ease;
+      padding: 0 14px;
+      transition: color 160ms ease, background-color 160ms ease;
     }
 
     input:focus, select:focus {
-      outline: none;
-      border-color: rgba(86, 214, 233, 0.72);
-      box-shadow: 0 0 0 4px rgba(86, 214, 233, 0.12);
+      outline: 1px solid var(--accent);
+      outline-offset: -1px;
     }
 
     button { cursor: pointer; font-weight: 700; }
-    button:hover { border-color: rgba(86, 214, 233, 0.48); background-color: var(--surface-raised); }
-    .b1 { color: #071317; border-color: transparent; background: linear-gradient(135deg, var(--cyan), var(--teal)); }
-    .b1:hover { background: linear-gradient(135deg, #75e2f0, #74ddb9); }
-    .b2 { background: var(--surface); }
+    button:hover { color: var(--accent); background-color: var(--surface-raised); }
+    .b1 { color: var(--black); background: var(--accent); }
+    .b1:hover { color: var(--black); background: #d7ff76; }
+    .b2 { background: var(--black); }
 
     .layout {
       display: grid;
-      grid-template-columns: 360px 1fr;
+      grid-template-columns: minmax(280px, 28vw) 1fr;
       min-height: 0;
       overflow: hidden;
     }
@@ -130,84 +124,132 @@
       display: grid;
       grid-template-rows: auto minmax(0, 1fr);
       border-right: 1px solid var(--line);
-      background: #111820;
+      background: var(--black);
     }
 
     .meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 14px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--line);
       color: var(--muted);
-      font-size: .86rem;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
     }
 
-    .list { min-height: 0; overflow: auto; }
+    .list { min-height: 0; overflow: auto; scrollbar-color: var(--accent) var(--black); }
 
     .item {
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(184, 204, 219, 0.09);
+      position: relative;
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(243, 241, 232, 0.09);
       cursor: pointer;
       opacity: 0;
-      transform: translateY(8px);
-      animation: rise .36s ease forwards;
+      transform: translateY(6px);
+      animation: rise .32s ease forwards;
     }
 
-    .item:hover { background: rgba(86, 214, 233, 0.07); }
-    .item.active { background: var(--active); border-left: 3px solid var(--cyan); padding-left: 11px; }
-    .item .t { font-weight: 700; }
-    .item .c { color: var(--muted); font-size: .84rem; margin-top: 2px; }
+    .item::after {
+      content: "↗";
+      position: absolute;
+      top: 50%;
+      right: 18px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: opacity 160ms ease;
+    }
+    .item:hover { background: var(--surface); }
+    .item:hover::after, .item.active::after { opacity: 1; }
+    .item.active { background: var(--active); box-shadow: inset 3px 0 var(--accent); }
+    .item .t { padding-right: 28px; font-weight: 700; }
+    .item .c { color: var(--muted); font-size: .72rem; margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
 
-    .right { min-height: 0; overflow: auto; padding: 18px; }
+    .right { min-height: 0; overflow: auto; padding: clamp(28px, 5vw, 72px); background: var(--panel); }
+    #detail { max-width: 920px; }
     .tag {
       display: inline-block;
-      font-size: .73rem;
+      font-size: .68rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      border: 1px solid rgba(244, 184, 96, 0.45);
-      border-radius: 999px;
-      color: var(--amber);
-      background: rgba(244, 184, 96, 0.08);
-      padding: 5px 10px;
+      letter-spacing: .16em;
+      border-bottom: 1px solid var(--accent);
+      color: var(--accent);
+      padding-bottom: 5px;
     }
 
     .term {
-      margin-top: 10px;
-      font-family: "Bahnschrift", "Segoe UI Variable", sans-serif;
-      font-size: clamp(1.35rem, 2.5vw, 1.98rem);
-      line-height: 1.15;
+      margin-top: 18px;
+      font-family: "Arial Black", "Aptos Display", sans-serif;
+      font-size: clamp(2.2rem, 5.4vw, 6.4rem);
+      font-weight: 900;
+      line-height: .94;
     }
 
-    .meaning { margin-top: 12px; line-height: 1.64; font-size: 1.02rem; }
-    .example, .why { margin-top: 12px; line-height: 1.58; color: #c1ccd4; }
+    .meaning { max-width: 760px; margin-top: 28px; line-height: 1.5; font-size: clamp(1.08rem, 1.8vw, 1.45rem); }
+    .example, .why { max-width: 760px; margin-top: 22px; line-height: 1.65; color: #c5c6bd; }
     .example {
-      background: rgba(86, 214, 233, 0.07);
-      border-left: 3px solid var(--cyan);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: #dbe8ed;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+      color: var(--ink);
     }
 
-    .related { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .related { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 1px; }
     .pill {
-      border: 1px solid rgba(87, 211, 173, 0.34);
-      border-radius: 999px;
-      background: rgba(87, 211, 173, 0.08);
-      color: #b9eddb;
-      padding: 6px 10px;
-      font-size: .84rem;
+      height: auto;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      padding: 9px 12px;
+      font-size: .78rem;
       cursor: pointer;
     }
+    .pill:hover { color: var(--black); background: var(--accent); }
+
+    .references {
+      max-width: 760px;
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .references h3 {
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+    }
+    .reference-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .reference-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 700;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+    .reference-link::after { content: "↗"; color: var(--accent); }
+    .reference-link:hover { color: var(--accent); border-color: var(--accent); }
+    .reference-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
 
     .empty { color: var(--muted); text-align: center; padding: 42px 10px; line-height: 1.6; }
 
     .hint {
-      margin-top: 14px;
+      max-width: 760px;
+      margin-top: 32px;
+      padding-top: 12px;
       border-top: 1px solid var(--line);
-      padding-top: 10px;
       color: var(--muted);
-      font-size: .84rem;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
     @keyframes boot { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -216,7 +258,7 @@
     @media (max-width: 880px) {
       body { height: auto; overflow: auto; }
       .controls { grid-template-columns: 1fr 1fr; }
-      .shell { height: auto; min-height: calc(100dvh - 28px); }
+      .shell { height: auto; min-height: 100dvh; }
       .layout { grid-template-columns: 1fr; overflow: visible; }
       .left { border-right: 0; border-bottom: 1px solid var(--line); }
       .list { max-height: 280px; }
@@ -225,8 +267,14 @@
 
     @media (max-width: 520px) {
       .controls { grid-template-columns: 1fr; }
-      .hero, .right { padding: 14px; }
-      body { padding: 8px; }
+      .hero { padding: 18px 16px; }
+      .right { padding: 32px 16px; }
+      h1 { font-size: 2.5rem; }
+      .term { font-size: clamp(2rem, 12vw, 3.5rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
@@ -234,7 +282,7 @@
   <main class="shell">
     <section class="hero">
       <span class="badge">AI Glossary</span>
-      <h1>Speak fluent AI..</h1>
+      <h1>Speak fluent AI.</h1>
       <p class="subtitle">Quick, human-friendly explanations for the jargon shaping modern AI.</p>
       <div class="controls">
         <input id="searchInput" type="text" placeholder="Search concepts, aliases, or meanings" />
@@ -265,6 +313,309 @@
     let categories = ["All"];
     let currentResults = [];
     let selectedIndex = -1;
+
+    const referenceLibrary = {
+      adversarialMl: ["NIST: Adversarial Machine Learning Taxonomy and Terminology", "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations"],
+      aiGovernance: ["IBM: What is AI governance?", "https://www.ibm.com/topics/ai-governance"],
+      aiOverview: ["IBM: What is artificial intelligence?", "https://www.ibm.com/topics/artificial-intelligence"],
+      aiPrinciples: ["Microsoft AI principles and approach", "https://www.microsoft.com/en-us/ai/principles-and-approach"],
+      aiRmf: ["NIST AI Risk Management Framework", "https://www.nist.gov/itl/ai-risk-management-framework"],
+      aiSafety: ["NIST AI Risk Management Framework", "https://www.nist.gov/itl/ai-risk-management-framework"],
+      arxivAttention: ["Attention Is All You Need", "https://arxiv.org/abs/1706.03762"],
+      arxivCoT: ["Chain-of-Thought Prompting Elicits Reasoning", "https://arxiv.org/abs/2201.11903"],
+      arxivDiffusion: ["Denoising Diffusion Probabilistic Models", "https://arxiv.org/abs/2006.11239"],
+      arxivDpo: ["Direct Preference Optimization", "https://arxiv.org/abs/2305.18290"],
+      arxivGan: ["Generative Adversarial Networks", "https://arxiv.org/abs/1406.2661"],
+      arxivLoRa: ["LoRA: Low-Rank Adaptation of Large Language Models", "https://arxiv.org/abs/2106.09685"],
+      arxivModelCards: ["Model Cards for Model Reporting", "https://arxiv.org/abs/1810.03993"],
+      arxivScaling: ["Scaling Laws for Neural Language Models", "https://arxiv.org/abs/2001.08361"],
+      arxivVit: ["An Image is Worth 16x16 Words", "https://arxiv.org/abs/2010.11929"],
+      azureAiSearchVectors: ["Vector search in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/vector-search-overview"],
+      azureChunking: ["Chunk documents for vector search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"],
+      azureHybridSearch: ["Hybrid search in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview"],
+      azureOpenAiPromptEngineering: ["Prompt engineering techniques | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"],
+      azureOpenAiStructuredOutputs: ["Structured outputs | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/structured-outputs"],
+      azureRag: ["Retrieval-augmented generation overview | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"],
+      azureSemanticSearch: ["Semantic ranking in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview"],
+      bigData: ["IBM: What is big data?", "https://www.ibm.com/topics/big-data"],
+      chatbot: ["IBM: What is a chatbot?", "https://www.ibm.com/topics/chatbots"],
+      conversationalAi: ["IBM: What is conversational AI?", "https://www.ibm.com/topics/conversational-ai"],
+      dataMining: ["IBM: What is data mining?", "https://www.ibm.com/topics/data-mining"],
+      decisionTree: ["IBM: What is a decision tree?", "https://www.ibm.com/topics/decision-trees"],
+      deepLearning: ["IBM: What is deep learning?", "https://www.ibm.com/topics/deep-learning"],
+      differentialPrivacy: ["IBM: What is differential privacy?", "https://www.ibm.com/topics/differential-privacy"],
+      explanatoryAi: ["IBM: What is explainable AI?", "https://www.ibm.com/topics/explainable-ai"],
+      federatedLearning: ["IBM: What is federated learning?", "https://www.ibm.com/topics/federated-learning"],
+      featureEngineering: ["IBM: What is feature engineering?", "https://www.ibm.com/topics/feature-engineering"],
+      genAi: ["IBM: What is generative AI?", "https://www.ibm.com/topics/generative-ai"],
+      ibmAiAgents: ["IBM: What are AI agents?", "https://www.ibm.com/topics/ai-agents"],
+      ibmAutomation: ["IBM: What is automation?", "https://www.ibm.com/topics/automation"],
+      ibmClassification: ["IBM: What is classification?", "https://www.ibm.com/topics/classification-machine-learning"],
+      ibmClustering: ["IBM: What is clustering?", "https://www.ibm.com/topics/clustering"],
+      ibmComputerVision: ["IBM: What is computer vision?", "https://www.ibm.com/topics/computer-vision"],
+      ibmEmbeddings: ["IBM: What are embeddings?", "https://www.ibm.com/topics/embedding"],
+      ibmFineTuning: ["IBM: What is fine-tuning?", "https://www.ibm.com/topics/fine-tuning"],
+      ibmHallucinations: ["IBM: What are AI hallucinations?", "https://www.ibm.com/topics/ai-hallucinations"],
+      ibmLlm: ["IBM: What are large language models?", "https://www.ibm.com/topics/large-language-models"],
+      ibmMLOps: ["IBM: What is MLOps?", "https://www.ibm.com/topics/mlops"],
+      ibmMachineLearning: ["IBM: What is machine learning?", "https://www.ibm.com/topics/machine-learning"],
+      ibmModelDrift: ["IBM: What is model drift?", "https://www.ibm.com/topics/model-drift"],
+      ibmNeuralNetworks: ["IBM: What are neural networks?", "https://www.ibm.com/topics/neural-networks"],
+      ibmNlp: ["IBM: What is natural language processing?", "https://www.ibm.com/topics/natural-language-processing"],
+      ibmOverfitting: ["IBM: What is overfitting?", "https://www.ibm.com/topics/overfitting"],
+      ibmPredictiveAnalytics: ["IBM: What is predictive analytics?", "https://www.ibm.com/topics/predictive-analytics"],
+      ibmRegression: ["IBM: What is regression?", "https://www.ibm.com/topics/regression"],
+      ibmReinforcementLearning: ["IBM: What is reinforcement learning?", "https://www.ibm.com/topics/reinforcement-learning"],
+      ibmResponsibleAi: ["IBM: What is responsible AI?", "https://www.ibm.com/topics/responsible-ai"],
+      ibmSupervisedLearning: ["IBM: What is supervised learning?", "https://www.ibm.com/topics/supervised-learning"],
+      ibmSyntheticData: ["IBM: What is synthetic data?", "https://www.ibm.com/topics/synthetic-data"],
+      ibmUnsupervisedLearning: ["IBM: What is unsupervised learning?", "https://www.ibm.com/topics/unsupervised-learning"],
+      ibmVectorDatabase: ["IBM: What is a vector database?", "https://www.ibm.com/topics/vector-database"],
+      mcpSpec: ["Model Context Protocol specification", "https://modelcontextprotocol.io/specification/latest"],
+      microsoftResponsibleAi: ["Microsoft Responsible AI", "https://www.microsoft.com/en-us/ai/responsible-ai"],
+      nistBias: ["NIST: Towards a Standard for Identifying and Managing Bias in AI", "https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence"],
+      openSourceDefinition: ["The Open Source Definition", "https://opensource.org/osd"],
+      owaspDataDisclosure: ["OWASP LLM02: Sensitive Information Disclosure", "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"],
+      owaspExcessiveAgency: ["OWASP LLM06: Excessive Agency", "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"],
+      owaspImproperOutput: ["OWASP LLM05: Improper Output Handling", "https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/"],
+      owaspPoisoning: ["OWASP LLM04: Data and Model Poisoning", "https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/"],
+      owaspPromptInjection: ["OWASP LLM01: Prompt Injection", "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"],
+      owaspSupplyChain: ["OWASP LLM03: Supply Chain", "https://genai.owasp.org/llmrisk/llm032025-supply-chain/"],
+      owaspVectorWeaknesses: ["OWASP LLM08: Vector and Embedding Weaknesses", "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/"],
+      pytorchTensors: ["PyTorch: Tensors", "https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html"],
+      stanfordTuringTest: ["The Turing Test | Stanford Encyclopedia of Philosophy", "https://plato.stanford.edu/entries/turing-test/"]
+    };
+
+    const categoryReferenceKeys = {
+      Agents: ["ibmAiAgents", "mcpSpec"],
+      Applications: ["aiOverview", "ibmAutomation"],
+      Evaluation: ["aiRmf", "adversarialMl"],
+      Foundations: ["aiOverview", "ibmMachineLearning"],
+      Governance: ["aiGovernance", "aiPrinciples"],
+      Models: ["ibmLlm", "arxivAttention"],
+      Operations: ["ibmMLOps", "aiRmf"],
+      Prompting: ["azureOpenAiPromptEngineering", "ibmLlm"],
+      Reliability: ["ibmHallucinations", "aiRmf"],
+      Retrieval: ["azureRag", "azureAiSearchVectors"],
+      Security: ["aiRmf", "owaspPromptInjection"],
+      Tasks: ["ibmClassification", "ibmSupervisedLearning"],
+      Training: ["ibmMachineLearning", "deepLearning"]
+    };
+
+    const topicReferenceKeys = {
+      "Agent": ["ibmAiAgents", "mcpSpec"],
+      "Alignment": ["aiRmf", "ibmResponsibleAi"],
+      "Artificial General Intelligence (AGI)": ["aiOverview", "aiSafety"],
+      "Attention": ["arxivAttention", "ibmLlm"],
+      "Autoencoder": ["deepLearning", "ibmNeuralNetworks"],
+      "Backpropagation": ["deepLearning", "ibmNeuralNetworks"],
+      "Benchmark": ["aiRmf"],
+      "Chain of Thought": ["arxivCoT", "azureOpenAiPromptEngineering"],
+      "Chunking": ["azureChunking", "azureRag"],
+      "Classification": ["ibmClassification", "ibmSupervisedLearning"],
+      "Context Window": ["ibmLlm", "azureOpenAiPromptEngineering"],
+      "Diffusion Model": ["arxivDiffusion", "genAi"],
+      "Distillation": ["ibmLlm", "deepLearning"],
+      "Embedding": ["ibmEmbeddings", "azureAiSearchVectors"],
+      "Epoch": ["ibmMachineLearning", "deepLearning"],
+      "Few-shot Prompting": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Fine-tuning": ["ibmFineTuning", "arxivLoRa"],
+      "Foundation Model": ["genAi", "ibmLlm"],
+      "Generative AI": ["genAi", "ibmLlm"],
+      "Gradient Descent": ["deepLearning", "ibmMachineLearning"],
+      "Guardrails": ["aiRmf", "owaspPromptInjection"],
+      "Hallucination": ["ibmHallucinations", "azureRag"],
+      "Inference": ["ibmLlm", "ibmMLOps"],
+      "Large Language Model (LLM)": ["ibmLlm", "arxivAttention"],
+      "Latency": ["ibmMLOps", "azureRag"],
+      "Learning Rate": ["deepLearning", "ibmMachineLearning"],
+      "LoRA": ["arxivLoRa", "ibmFineTuning"],
+      "Loss Function": ["ibmMachineLearning", "deepLearning"],
+      "Machine Learning": ["ibmMachineLearning", "aiOverview"],
+      "Model": ["ibmMachineLearning", "aiOverview"],
+      "Multimodal": ["genAi", "ibmLlm"],
+      "Neural Network": ["ibmNeuralNetworks", "deepLearning"],
+      "Overfitting": ["ibmOverfitting", "ibmMachineLearning"],
+      "Parameter": ["ibmLlm", "deepLearning"],
+      "Prompt": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Prompt Injection": ["owaspPromptInjection", "owaspImproperOutput"],
+      "Quantization": ["ibmLlm", "ibmMLOps"],
+      "RAG": ["azureRag", "ibmVectorDatabase"],
+      "Reinforcement Learning": ["ibmReinforcementLearning", "aiRmf"],
+      "RLHF": ["ibmReinforcementLearning", "ibmResponsibleAi"],
+      "Semantic Search": ["azureSemanticSearch", "ibmVectorDatabase"],
+      "Structured Output": ["azureOpenAiStructuredOutputs", "owaspImproperOutput"],
+      "System Prompt": ["azureOpenAiPromptEngineering", "owaspPromptInjection"],
+      "Temperature": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Token": ["ibmLlm", "azureOpenAiPromptEngineering"],
+      "Tool Use": ["ibmAiAgents", "mcpSpec"],
+      "Transformer": ["arxivAttention", "ibmLlm"],
+      "Vector Database": ["ibmVectorDatabase", "azureAiSearchVectors"],
+      "Zero-shot": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Artificial Intelligence": ["aiOverview", "aiPrinciples"],
+      "Deep Learning": ["deepLearning", "ibmNeuralNetworks"],
+      "Hyperparameter": ["ibmMachineLearning", "deepLearning"],
+      "Latent Space": ["ibmEmbeddings", "genAi"],
+      "Vision-Language Model": ["genAi", "ibmComputerVision"],
+      "Mixture of Experts": ["ibmLlm", "arxivAttention"],
+      "Small Language Model": ["ibmLlm", "ibmMLOps"],
+      "Reasoning Model": ["ibmLlm", "arxivCoT"],
+      "Training": ["ibmMachineLearning", "deepLearning"],
+      "Pretraining": ["ibmLlm", "genAi"],
+      "PEFT": ["arxivLoRa", "ibmFineTuning"],
+      "Batch": ["ibmMachineLearning", "deepLearning"],
+      "DPO": ["arxivDpo", "ibmResponsibleAi"],
+      "Top-p": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Context Engineering": ["azureOpenAiPromptEngineering", "mcpSpec"],
+      "Grounding": ["azureRag", "ibmHallucinations"],
+      "Hybrid Search": ["azureHybridSearch", "azureSemanticSearch"],
+      "Reranker": ["azureRag", "azureSemanticSearch"],
+      "Tool Calling": ["mcpSpec", "ibmAiAgents"],
+      "MCP": ["mcpSpec", "ibmAiAgents"],
+      "Planning": ["ibmAiAgents", "arxivCoT"],
+      "Agent Memory": ["ibmAiAgents", "mcpSpec"],
+      "Human-in-the-loop": ["aiRmf", "ibmResponsibleAi"],
+      "Multi-agent System": ["ibmAiAgents", "mcpSpec"],
+      "Indirect Prompt Injection": ["owaspPromptInjection", "owaspPoisoning"],
+      "Jailbreak": ["owaspPromptInjection", "aiRmf"],
+      "Tool Poisoning": ["owaspSupplyChain", "owaspPromptInjection"],
+      "MCP Poisoning": ["mcpSpec", "owaspSupplyChain"],
+      "RAG Poisoning": ["owaspPoisoning", "owaspVectorWeaknesses"],
+      "Slopsquatting": ["owaspSupplyChain", "ibmHallucinations"],
+      "Data Exfiltration": ["owaspDataDisclosure", "owaspExcessiveAgency"],
+      "Least Privilege": ["owaspExcessiveAgency", "aiRmf"],
+      "Sandboxing": ["owaspImproperOutput", "aiRmf"],
+      "Supply-chain Security": ["owaspSupplyChain", "openSourceDefinition"],
+      "Model Provenance": ["owaspSupplyChain", "aiGovernance"],
+      "Model Theft": ["owaspDataDisclosure", "aiRmf"],
+      "Adversarial Example": ["adversarialMl", "aiRmf"],
+      "Red Teaming": ["aiRmf", "adversarialMl"],
+      "Metric": ["aiRmf", "ibmMachineLearning"],
+      "Precision": ["ibmClassification", "aiRmf"],
+      "Recall": ["ibmClassification", "aiRmf"],
+      "F1 Score": ["ibmClassification", "aiRmf"],
+      "Perplexity": ["ibmLlm", "aiRmf"],
+      "Robustness": ["adversarialMl", "aiRmf"],
+      "Throughput": ["ibmMLOps", "ibmLlm"],
+      "GPU": ["deepLearning", "ibmMLOps"],
+      "NPU": ["ibmMLOps", "deepLearning"],
+      "Edge AI": ["ibmMLOps", "aiOverview"],
+      "Caching": ["ibmMLOps", "azureRag"],
+      "Prompt Caching": ["ibmLlm", "azureOpenAiPromptEngineering"],
+      "Observability": ["ibmMLOps", "aiRmf"],
+      "Tracing": ["ibmMLOps", "mcpSpec"],
+      "AI Gateway": ["aiRmf", "owaspExcessiveAgency"],
+      "Moderation": ["aiRmf", "ibmResponsibleAi"],
+      "AI Governance": ["aiGovernance", "aiRmf"],
+      "Model Card": ["arxivModelCards", "aiGovernance"],
+      "Policy": ["aiGovernance", "aiRmf"],
+      "Evaluation": ["aiRmf", "arxivModelCards"],
+      "Narrow AI": ["aiOverview", "ibmMachineLearning"],
+      "Regularization": ["ibmOverfitting", "ibmMachineLearning"],
+      "Sampling": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Supervised Learning": ["ibmSupervisedLearning", "ibmMachineLearning"],
+      "Validation Set": ["ibmOverfitting", "ibmMachineLearning"],
+      "Algorithm": ["ibmMachineLearning", "aiOverview"],
+      "Computer Vision": ["ibmComputerVision", "deepLearning"],
+      "Natural Language Processing": ["ibmNlp", "ibmLlm"],
+      "Robotics": ["aiOverview", "ibmAutomation"],
+      "Artificial Superintelligence": ["aiSafety", "aiOverview"],
+      "Artificial Narrow Intelligence": ["aiOverview", "ibmMachineLearning"],
+      "AI Safety": ["aiSafety", "aiRmf"],
+      "Bias in AI": ["nistBias", "aiRmf"],
+      "Explainable AI": ["explanatoryAi", "aiRmf"],
+      "Interpretability": ["explanatoryAi", "aiRmf"],
+      "Responsible AI": ["microsoftResponsibleAi", "ibmResponsibleAi"],
+      "Ethical AI": ["aiPrinciples", "aiRmf"],
+      "AI Fluency": ["aiPrinciples", "microsoftResponsibleAi"],
+      "Human-Centered AI": ["aiPrinciples", "ibmResponsibleAi"],
+      "Bias": ["nistBias", "aiRmf"],
+      "Fairness": ["nistBias", "aiRmf"],
+      "Unsupervised Learning": ["ibmUnsupervisedLearning", "ibmMachineLearning"],
+      "Self-Supervised Learning": ["ibmLlm", "genAi"],
+      "Transfer Learning": ["ibmFineTuning", "deepLearning"],
+      "Federated Learning": ["federatedLearning", "differentialPrivacy"],
+      "Contrastive Learning": ["deepLearning", "ibmMachineLearning"],
+      "Data Augmentation": ["ibmSyntheticData", "ibmMachineLearning"],
+      "Prompt Engineering": ["azureOpenAiPromptEngineering", "ibmLlm"],
+      "Few-Shot Learning": ["ibmMachineLearning", "ibmFineTuning"],
+      "Zero-Shot Learning": ["ibmLlm", "azureOpenAiPromptEngineering"],
+      "Tokenization": ["ibmLlm", "azureOpenAiPromptEngineering"],
+      "Generative Adversarial Network": ["arxivGan", "genAi"],
+      "Vision Transformer": ["arxivVit", "ibmComputerVision"],
+      "Knowledge Graph": ["azureRag", "azureSemanticSearch"],
+      "Tensor": ["pytorchTensors", "deepLearning"],
+      "MLOps": ["ibmMLOps", "aiRmf"],
+      "LLMOps": ["ibmMLOps", "ibmLlm"],
+      "Model Drift": ["ibmModelDrift", "ibmMLOps"],
+      "Training Data": ["ibmMachineLearning", "ibmSyntheticData"],
+      "Synthetic Data": ["ibmSyntheticData", "ibmMachineLearning"],
+      "Scaling Laws": ["arxivScaling", "ibmLlm"],
+      "Sentiment Analysis": ["ibmNlp", "ibmClassification"],
+      "Data Mining": ["dataMining", "ibmMachineLearning"],
+      "Decision Tree": ["decisionTree", "ibmSupervisedLearning"],
+      "Ensemble Methods": ["decisionTree", "ibmMachineLearning"],
+      "k-Nearest Neighbors": ["ibmClassification", "ibmMachineLearning"],
+      "Bayesian Network": ["ibmMachineLearning", "aiRmf"],
+      "Dimensionality Reduction": ["ibmMachineLearning", "featureEngineering"],
+      "Markov Chain": ["ibmReinforcementLearning", "ibmMachineLearning"],
+      "Open-Weight Model": ["openSourceDefinition", "aiGovernance"],
+      "Open Source": ["openSourceDefinition", "owaspSupplyChain"],
+      "Closed Source": ["openSourceDefinition", "aiGovernance"],
+      "Chatbot": ["chatbot", "conversationalAi"],
+      "Conversational AI": ["conversationalAi", "chatbot"],
+      "Automation": ["ibmAutomation", "ibmAiAgents"],
+      "Anthropomorphism": ["aiPrinciples", "ibmResponsibleAi"],
+      "Predictive Analytics": ["ibmPredictiveAnalytics", "ibmMachineLearning"],
+      "Feedback Loop": ["ibmMLOps", "ibmReinforcementLearning"],
+      "Emergent Behavior": ["ibmLlm", "arxivScaling"],
+      "Big Data": ["bigData", "dataMining"],
+      "Zero Data Retention": ["differentialPrivacy", "owaspDataDisclosure"],
+      "Differential Privacy": ["differentialPrivacy", "nistBias"],
+      "AI Toxicity": ["aiRmf", "ibmResponsibleAi"],
+      "Agentic AI": ["ibmAiAgents", "mcpSpec"],
+      "Traditional AI": ["aiOverview", "ibmMachineLearning"],
+      "Expert System": ["aiOverview", "ibmAutomation"],
+      "Human-Computer Interaction": ["aiPrinciples", "ibmResponsibleAi"],
+      "Turing Test": ["stanfordTuringTest", "aiOverview"],
+      "Representation Learning": ["deepLearning", "featureEngineering"],
+      "Feature Engineering": ["featureEngineering", "ibmMachineLearning"],
+      "Clustering": ["ibmClustering", "ibmUnsupervisedLearning"],
+      "Regression": ["ibmRegression", "ibmSupervisedLearning"],
+      "Monitoring": ["ibmMLOps", "aiRmf"],
+      "Privacy": ["differentialPrivacy", "owaspDataDisclosure"],
+      "AI Alignment": ["aiRmf", "ibmResponsibleAi"],
+      "Probabilistic Model": ["ibmMachineLearning", "decisionTree"]
+    };
+
+    function referencesFromKeys(keys) {
+      return keys.map(key => referenceLibrary[key]).filter(Boolean);
+    }
+
+    const topicReferences = Object.fromEntries(
+      allEntries.map(entry => [
+        entry.term,
+        referencesFromKeys(topicReferenceKeys[entry.term] || categoryReferenceKeys[entry.category] || ["aiOverview"])
+      ])
+    );
+
+    function renderReferences(entry) {
+      const references = topicReferences[entry.term];
+      if (!references) return "";
+
+      const links = references
+        .map(([label, url]) => `<a class="reference-link" href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`)
+        .join("");
+
+      return `
+        <section class="references" aria-labelledby="references-heading">
+          <h3 id="references-heading">Read more</h3>
+          <div class="reference-links">
+            ${links}
+          </div>
+        </section>
+      `;
+    }
 
     function scoreMatch(entry, words, normalized) {
       const term = (entry.term || "").toLowerCase();
@@ -340,6 +691,7 @@
         <p class="example"><strong>Clear example:</strong> ${clearExample(entry)}</p>
         ${entry.whyItMatters ? `<p class="why"><strong>Why it matters:</strong> ${entry.whyItMatters}</p>` : ""}
         ${related ? `<div class="related">${related}</div>` : ""}
+        ${renderReferences(entry)}
       `;
     }
 
@@ -398,7 +750,9 @@
     }
 
     function bindEvents() {
-      document.getElementById('searchInput').addEventListener('input', updateResults);
+      const searchInput = document.getElementById('searchInput');
+
+      searchInput.addEventListener('input', updateResults);
       document.getElementById('categorySelect').addEventListener('change', updateResults);
 
       document.getElementById('clearBtn').addEventListener('click', () => {
@@ -415,19 +769,31 @@
         updateResults();
       });
 
-      document.getElementById('searchInput').addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', (e) => {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+        const activeElement = document.activeElement;
+        const isNativeControl = activeElement instanceof HTMLButtonElement
+          || activeElement instanceof HTMLAnchorElement;
+
         if (e.key === 'ArrowDown') {
+          if (activeElement instanceof HTMLSelectElement) return;
           e.preventDefault();
           selectResult(Math.min(selectedIndex + 1, currentResults.length - 1));
         } else if (e.key === 'ArrowUp') {
+          if (activeElement instanceof HTMLSelectElement) return;
           e.preventDefault();
           selectResult(Math.max(selectedIndex - 1, 0));
-        } else if (e.key === 'Enter') {
+        } else if (e.key === 'Enter' && !isNativeControl && activeElement !== searchInput) {
           e.preventDefault();
-          document.getElementById('searchInput').select();
+          searchInput.focus();
+          searchInput.select();
         } else if (e.key === 'Escape') {
-          document.getElementById('searchInput').value = '';
+          e.preventDefault();
+          searchInput.value = '';
+          document.getElementById('categorySelect').value = 'All';
           updateResults();
+          searchInput.focus();
         }
       });
     }
