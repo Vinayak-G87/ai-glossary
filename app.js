@@ -51,515 +51,1492 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
 
     allEntries.push(...additionalEntries);
 
-    const referenceLibrary = {
-      adversarialMl: ["NIST: Adversarial Machine Learning Taxonomy and Terminology", "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations"],
-      aiGovernance: ["IBM: What is AI governance?", "https://www.ibm.com/topics/ai-governance"],
-      aiOverview: ["IBM: What is artificial intelligence?", "https://www.ibm.com/topics/artificial-intelligence"],
-      aiPrinciples: ["Microsoft AI principles and approach", "https://www.microsoft.com/en-us/ai/principles-and-approach"],
-      aiRmf: ["NIST AI Risk Management Framework", "https://www.nist.gov/itl/ai-risk-management-framework"],
-      aiSafety: ["NIST AI Risk Management Framework", "https://www.nist.gov/itl/ai-risk-management-framework"],
-      arxivAttention: ["Attention Is All You Need", "https://arxiv.org/abs/1706.03762"],
-      arxivCoT: ["Chain-of-Thought Prompting Elicits Reasoning", "https://arxiv.org/abs/2201.11903"],
-      arxivDiffusion: ["Denoising Diffusion Probabilistic Models", "https://arxiv.org/abs/2006.11239"],
-      arxivDpo: ["Direct Preference Optimization", "https://arxiv.org/abs/2305.18290"],
-      arxivGan: ["Generative Adversarial Networks", "https://arxiv.org/abs/1406.2661"],
-      arxivLoRa: ["LoRA: Low-Rank Adaptation of Large Language Models", "https://arxiv.org/abs/2106.09685"],
-      arxivModelCards: ["Model Cards for Model Reporting", "https://arxiv.org/abs/1810.03993"],
-      arxivScaling: ["Scaling Laws for Neural Language Models", "https://arxiv.org/abs/2001.08361"],
-      arxivVit: ["An Image is Worth 16x16 Words", "https://arxiv.org/abs/2010.11929"],
-      azureAiSearchVectors: ["Vector search in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/vector-search-overview"],
-      azureChunking: ["Chunk documents for vector search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"],
-      azureHybridSearch: ["Hybrid search in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview"],
-      azureOpenAiPromptEngineering: ["Prompt engineering techniques | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/prompt-engineering"],
-      azureOpenAiStructuredOutputs: ["Structured outputs | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/structured-outputs"],
-      azureRag: ["Retrieval-augmented generation overview | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"],
-      azureSemanticSearch: ["Semantic ranking in Azure AI Search | Microsoft Learn", "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview"],
-      bigData: ["IBM: What is big data?", "https://www.ibm.com/topics/big-data"],
-      chatbot: ["IBM: What is a chatbot?", "https://www.ibm.com/topics/chatbots"],
-      conversationalAi: ["IBM: What is conversational AI?", "https://www.ibm.com/topics/conversational-ai"],
-      dataMining: ["IBM: What is data mining?", "https://www.ibm.com/topics/data-mining"],
-      decisionTree: ["IBM: What is a decision tree?", "https://www.ibm.com/topics/decision-trees"],
-      deepLearning: ["IBM: What is deep learning?", "https://www.ibm.com/topics/deep-learning"],
-      differentialPrivacy: ["IBM: What is differential privacy?", "https://www.ibm.com/topics/differential-privacy"],
-      explanatoryAi: ["IBM: What is explainable AI?", "https://www.ibm.com/topics/explainable-ai"],
-      federatedLearning: ["IBM: What is federated learning?", "https://www.ibm.com/topics/federated-learning"],
-      featureEngineering: ["IBM: What is feature engineering?", "https://www.ibm.com/topics/feature-engineering"],
-      genAi: ["IBM: What is generative AI?", "https://www.ibm.com/topics/generative-ai"],
-      ibmAiAgents: ["IBM: What are AI agents?", "https://www.ibm.com/topics/ai-agents"],
-      ibmAutomation: ["IBM: What is automation?", "https://www.ibm.com/topics/automation"],
-      ibmClassification: ["IBM: What is classification?", "https://www.ibm.com/topics/classification-machine-learning"],
-      ibmClustering: ["IBM: What is clustering?", "https://www.ibm.com/topics/clustering"],
-      ibmComputerVision: ["IBM: What is computer vision?", "https://www.ibm.com/topics/computer-vision"],
-      ibmEmbeddings: ["IBM: What are embeddings?", "https://www.ibm.com/topics/embedding"],
-      ibmFineTuning: ["IBM: What is fine-tuning?", "https://www.ibm.com/topics/fine-tuning"],
-      ibmHallucinations: ["IBM: What are AI hallucinations?", "https://www.ibm.com/topics/ai-hallucinations"],
-      ibmLlm: ["IBM: What are large language models?", "https://www.ibm.com/topics/large-language-models"],
-      ibmMLOps: ["IBM: What is MLOps?", "https://www.ibm.com/topics/mlops"],
-      ibmMachineLearning: ["IBM: What is machine learning?", "https://www.ibm.com/topics/machine-learning"],
-      ibmModelDrift: ["IBM: What is model drift?", "https://www.ibm.com/topics/model-drift"],
-      ibmNeuralNetworks: ["IBM: What are neural networks?", "https://www.ibm.com/topics/neural-networks"],
-      ibmNlp: ["IBM: What is natural language processing?", "https://www.ibm.com/topics/natural-language-processing"],
-      ibmOverfitting: ["IBM: What is overfitting?", "https://www.ibm.com/topics/overfitting"],
-      ibmPredictiveAnalytics: ["IBM: What is predictive analytics?", "https://www.ibm.com/topics/predictive-analytics"],
-      ibmRegression: ["IBM: What is regression?", "https://www.ibm.com/topics/regression"],
-      ibmReinforcementLearning: ["IBM: What is reinforcement learning?", "https://www.ibm.com/topics/reinforcement-learning"],
-      ibmResponsibleAi: ["IBM: What is responsible AI?", "https://www.ibm.com/topics/responsible-ai"],
-      ibmSupervisedLearning: ["IBM: What is supervised learning?", "https://www.ibm.com/topics/supervised-learning"],
-      ibmSyntheticData: ["IBM: What is synthetic data?", "https://www.ibm.com/topics/synthetic-data"],
-      ibmUnsupervisedLearning: ["IBM: What is unsupervised learning?", "https://www.ibm.com/topics/unsupervised-learning"],
-      ibmVectorDatabase: ["IBM: What is a vector database?", "https://www.ibm.com/topics/vector-database"],
-      mcpSpec: ["Model Context Protocol specification", "https://modelcontextprotocol.io/specification/latest"],
-      microsoftResponsibleAi: ["Microsoft Responsible AI", "https://www.microsoft.com/en-us/ai/responsible-ai"],
-      nistBias: ["NIST: Towards a Standard for Identifying and Managing Bias in AI", "https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence"],
-      openSourceDefinition: ["The Open Source Definition", "https://opensource.org/osd"],
-      owaspDataDisclosure: ["OWASP LLM02: Sensitive Information Disclosure", "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"],
-      owaspExcessiveAgency: ["OWASP LLM06: Excessive Agency", "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"],
-      owaspImproperOutput: ["OWASP LLM05: Improper Output Handling", "https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/"],
-      owaspPoisoning: ["OWASP LLM04: Data and Model Poisoning", "https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/"],
-      owaspPromptInjection: ["OWASP LLM01: Prompt Injection", "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"],
-      owaspSupplyChain: ["OWASP LLM03: Supply Chain", "https://genai.owasp.org/llmrisk/llm032025-supply-chain/"],
-      owaspVectorWeaknesses: ["OWASP LLM08: Vector and Embedding Weaknesses", "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/"],
-      pytorchTensors: ["PyTorch: Tensors", "https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html"],
-      pytorchSpeculativeDecoding: ["A Hitchhiker's Guide to Speculative Decoding | PyTorch", "https://pytorch.org/blog/hitchhikers-guide-speculative-decoding/"],
-      stanfordTuringTest: ["The Turing Test | Stanford Encyclopedia of Philosophy", "https://plato.stanford.edu/entries/turing-test/"]
-    };
-
-    const stanfordReferenceUrls = {
-      "Alignment": "https://hai.stanford.edu/ai-definitions/what-is-ai-alignment",
-      "Artificial General Intelligence (AGI)": "https://hai.stanford.edu/ai-definitions/what-is-agi-artificial-general-intelligence",
-      "Attention": "https://hai.stanford.edu/ai-definitions/what-is-attention-mechanism",
-      "Backpropagation": "https://hai.stanford.edu/ai-definitions/what-is-backpropagation",
-      "Benchmark": "https://hai.stanford.edu/ai-definitions/what-is-ai-benchmarks",
-      "Context Window": "https://hai.stanford.edu/ai-definitions/what-is-a-context-window",
-      "Diffusion Model": "https://hai.stanford.edu/ai-definitions/what-are-diffusion-models",
-      "Embedding": "https://hai.stanford.edu/ai-definitions/what-are-embeddings",
-      "Fine-tuning": "https://hai.stanford.edu/ai-definitions/what-is-fine-tuning",
-      "Foundation Model": "https://hai.stanford.edu/ai-definitions/what-are-foundation-models",
-      "Generative AI": "https://hai.stanford.edu/ai-definitions/what-is-generative-ai",
-      "Hallucination": "https://hai.stanford.edu/ai-definitions/what-are-hallucinations",
-      "Inference": "https://hai.stanford.edu/ai-definitions/what-is-inference",
-      "Large Language Model (LLM)": "https://hai.stanford.edu/ai-definitions/what-is-a-llm",
-      "Machine Learning": "https://hai.stanford.edu/ai-definitions/what-is-machine-learning",
-      "Model": "https://hai.stanford.edu/ai-definitions/what-is-a-model",
-      "Multimodal": "https://hai.stanford.edu/ai-definitions/what-is-multimodal-ai",
-      "Neural Network": "https://hai.stanford.edu/ai-definitions/what-is-a-neural-network",
-      "Overfitting": "https://hai.stanford.edu/ai-definitions/what-is-overfitting",
-      "Parameter": "https://hai.stanford.edu/ai-definitions/what-are-parameters",
-      "Prompt Injection": "https://hai.stanford.edu/ai-definitions/what-is-prompt-injection",
-      "RAG": "https://hai.stanford.edu/ai-definitions/what-is-rag",
-      "Reinforcement Learning": "https://hai.stanford.edu/ai-definitions/what-is-reinforcement-learning",
-      "Transformer": "https://hai.stanford.edu/ai-definitions/what-is-a-transformer",
-      "Vector Database": "https://hai.stanford.edu/ai-definitions/what-is-a-vector-database",
-      "Artificial Intelligence": "https://hai.stanford.edu/ai-definitions/what-is-artificial-intelligence-ai",
-      "Deep Learning": "https://hai.stanford.edu/ai-definitions/what-is-deep-learning",
-      "Hyperparameter": "https://hai.stanford.edu/ai-definitions/what-is-a-hyperparameter",
-      "Latent Space": "https://hai.stanford.edu/ai-definitions/what-is-latent-space",
-      "Reasoning Model": "https://hai.stanford.edu/ai-definitions/what-is-a-reasoning-model",
-      "Human-in-the-loop": "https://hai.stanford.edu/ai-definitions/what-is-human-in-the-loop",
-      "Indirect Prompt Injection": "https://hai.stanford.edu/ai-definitions/what-is-prompt-injection",
-      "AI Governance": "https://hai.stanford.edu/ai-definitions",
-      "Narrow AI": "https://hai.stanford.edu/policy/brief-definitions-of-key-terms-in-ai",
-      "Supervised Learning": "https://hai.stanford.edu/ai-definitions/what-is-supervised-learning",
-      "Algorithm": "https://hai.stanford.edu/ai-definitions/what-is-an-algorithm",
-      "Computer Vision": "https://hai.stanford.edu/ai-definitions/what-is-computer-vision",
-      "Natural Language Processing": "https://hai.stanford.edu/ai-definitions/what-is-nlp",
-      "Robotics": "https://hai.stanford.edu/ai-definitions/what-are-robotics",
-      "Artificial Narrow Intelligence": "https://hai.stanford.edu/policy/brief-definitions-of-key-terms-in-ai",
-      "AI Safety": "https://hai.stanford.edu/ai-definitions/what-is-ai-safety",
-      "Bias in AI": "https://hai.stanford.edu/ai-definitions/what-is-bias-in-ai",
-      "Explainable AI": "https://hai.stanford.edu/ai-definitions/what-is-explainable-ai-xai",
-      "Interpretability": "https://hai.stanford.edu/ai-definitions/what-is-interpretability",
-      "Responsible AI": "https://hai.stanford.edu/ai-definitions/what-is-responsible-ai",
-      "Ethical AI": "https://hai.stanford.edu/ai-definitions/what-is-ethical-ai",
-      "AI Fluency": "https://hai.stanford.edu/ai-definitions/what-is-ai-fluency",
-      "Human-Centered AI": "https://hai.stanford.edu/ai-definitions/what-is-human-centered-ai",
-      "Bias": "https://hai.stanford.edu/ai-definitions/what-is-bias-in-ai",
-      "Unsupervised Learning": "https://hai.stanford.edu/ai-definitions/what-is-unsupervised-learning",
-      "Self-Supervised Learning": "https://hai.stanford.edu/ai-definitions/what-is-self-supervised-learning",
-      "Transfer Learning": "https://hai.stanford.edu/ai-definitions/what-is-transfer-learning",
-      "Federated Learning": "https://hai.stanford.edu/ai-definitions/what-is-federated-learning",
-      "Contrastive Learning": "https://hai.stanford.edu/ai-definitions/what-is-contrastive-learning",
-      "Data Augmentation": "https://hai.stanford.edu/ai-definitions/what-is-data-augmentation",
-      "Prompt Engineering": "https://hai.stanford.edu/ai-definitions/what-is-prompt-engineering",
-      "Few-Shot Learning": "https://hai.stanford.edu/ai-definitions/what-is-few-shot-learning",
-      "Zero-Shot Learning": "https://hai.stanford.edu/ai-definitions/what-is-zero-shot-learning",
-      "Tokenization": "https://hai.stanford.edu/ai-definitions/what-is-tokenization",
-      "Generative Adversarial Network": "https://hai.stanford.edu/ai-definitions/what-are-gans",
-      "Vision Transformer": "https://hai.stanford.edu/ai-definitions/what-is-a-vit",
-      "Knowledge Graph": "https://hai.stanford.edu/ai-definitions/what-is-a-knowledge-graph",
-      "Tensor": "https://hai.stanford.edu/ai-definitions/what-is-a-tensor",
-      "MLOps": "https://hai.stanford.edu/ai-definitions/what-are-mlops",
-      "LLMOps": "https://hai.stanford.edu/ai-definitions/what-are-llmops",
-      "Model Drift": "https://hai.stanford.edu/ai-definitions/what-is-model-drift",
-      "Training Data": "https://hai.stanford.edu/ai-definitions/what-is-training-data",
-      "Synthetic Data": "https://hai.stanford.edu/ai-definitions/what-is-synthetic-data",
-      "Scaling Laws": "https://hai.stanford.edu/ai-definitions/what-are-scaling-laws",
-      "Data Mining": "https://hai.stanford.edu/ai-definitions/what-is-data-mining",
-      "Decision Tree": "https://hai.stanford.edu/ai-definitions/what-is-a-decision-tree",
-      "Ensemble Methods": "https://hai.stanford.edu/ai-definitions/what-are-ensemble-methods",
-      "k-Nearest Neighbors": "https://hai.stanford.edu/ai-definitions/what-is-a-k-nn",
-      "Bayesian Network": "https://hai.stanford.edu/ai-definitions/what-are-bayesian-networks",
-      "Dimensionality Reduction": "https://hai.stanford.edu/ai-definitions/what-is-dimensionality-reduction",
-      "Markov Chain": "https://hai.stanford.edu/ai-definitions/what-is-a-markov-chain",
-      "Open-Weight Model": "https://hai.stanford.edu/ai-definitions/what-is-an-open-weight-model",
-      "Open Source": "https://hai.stanford.edu/ai-definitions/what-is-open-source",
-      "Closed Source": "https://hai.stanford.edu/ai-definitions/what-is-closed-source",
-      "Chatbot": "https://hai.stanford.edu/ai-definitions/what-is-a-chatbot",
-      "Automation": "https://hai.stanford.edu/automation",
-      "Predictive Analytics": "https://hai.stanford.edu/ai-definitions/what-are-predictive-analytics",
-      "Agentic AI": "https://hai.stanford.edu/ai-definitions/what-is-agentic-ai",
-      "Traditional AI": "https://hai.stanford.edu/ai-definitions/what-is-traditional-ai",
-      "Expert System": "https://hai.stanford.edu/ai-definitions/what-is-an-expert-system",
-      "Human-Computer Interaction": "https://hai.stanford.edu/ai-definitions/what-is-hci",
-      "Turing Test": "https://hai.stanford.edu/ai-definitions/what-is-the-turing-test",
-      "AI Alignment": "https://hai.stanford.edu/ai-definitions/what-is-ai-alignment"
-};
-
-    const exactReferenceByTerm = {
-      "Speculative Decoding": [
-        "Fast Inference from Transformers via Speculative Decoding",
-        "https://arxiv.org/abs/2211.17192"
+    // Curated term-by-term references. Generic category fallbacks were intentionally removed
+    // so every Read more link has direct context for the glossary term it accompanies.
+    const topicReferences = {
+      "Agent": [
+        [
+          "Academic survey: LLM-based autonomous agents",
+          "https://arxiv.org/abs/2308.11432"
+        ]
       ],
-      "Graph of Thought": [
-        "Graph of Thoughts: Solving Elaborate Problems with Large Language Models",
-        "https://arxiv.org/abs/2308.09687"
+      "Alignment": [
+        [
+          "Stanford HAI: What is AI Alignment?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ai-alignment"
+        ]
       ],
-      "Tree of Thought": [
-        "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
-        "https://arxiv.org/abs/2305.10601"
+      "Artificial General Intelligence (AGI)": [
+        [
+          "Stanford HAI: What is AGI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-agi-artificial-general-intelligence"
+        ]
       ],
-      "GEval": [
-        "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment",
-        "https://arxiv.org/abs/2303.16634"
-      ],
-      "DAG": [
-        "DeepEval: DAG Metric",
-        "https://deepeval.com/docs/metrics-dag"
-      ],
-      "QAG": [
-        "Explicit Diversity Conditions for Effective Question Answer Generation with Large Language Models",
-        "https://arxiv.org/abs/2406.17990"
-      ],
-      "Chain of Thought": [
-            "Chain-of-Thought Prompting Elicits Reasoning",
-            "https://arxiv.org/abs/2201.11903"
-      ],
-      "Chunking": [
-            "Microsoft Learn: Chunk documents for vector search",
-            "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"
-      ],
-      "LoRA": [
-            "LoRA: Low-Rank Adaptation of Large Language Models",
-            "https://arxiv.org/abs/2106.09685"
-      ],
-      "DPO": [
-            "Direct Preference Optimization",
-            "https://arxiv.org/abs/2305.18290"
-      ],
-      "Semantic Search": [
-            "Microsoft Learn: Semantic ranking in Azure AI Search",
-            "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview"
-      ],
-      "Structured Output": [
-            "Microsoft Learn: Structured outputs",
-            "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/structured-outputs"
-      ],
-      "Hybrid Search": [
-            "Microsoft Learn: Hybrid search in Azure AI Search",
-            "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview"
-      ],
-      "Reranker": [
-            "Microsoft Learn: Semantic ranker",
-            "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview"
-      ],
-      "MCP": [
-            "Model Context Protocol specification",
-            "https://modelcontextprotocol.io/specification/latest"
-      ],
-      "RAG Poisoning": [
-            "OWASP LLM04: Data and Model Poisoning",
-            "https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/"
-      ],
-      "Data Exfiltration": [
-            "OWASP LLM02: Sensitive Information Disclosure",
-            "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"
-      ],
-      "Least Privilege": [
-            "OWASP LLM06: Excessive Agency",
-            "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
-      ],
-      "Supply-chain Security": [
-            "OWASP LLM03: Supply Chain",
-            "https://genai.owasp.org/llmrisk/llm032025-supply-chain/"
-      ],
-      "Adversarial Example": [
-            "NIST: Adversarial Machine Learning Taxonomy",
-            "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations"
-      ],
-      "Red Teaming": [
-            "NIST AI Risk Management Framework",
-            "https://www.nist.gov/itl/ai-risk-management-framework"
-      ],
-      "Model Card": [
-            "Model Cards for Model Reporting",
-            "https://arxiv.org/abs/1810.03993"
-      ],
-      "Zero Data Retention": [
-            "OpenAI API: Data controls and Zero Data Retention",
-            "https://platform.openai.com/docs/models/default-usage-policies-by-endpoint"
+      "Attention": [
+        [
+          "Stanford HAI: What is an Attention Mechanism?",
+          "https://hai.stanford.edu/ai-definitions/what-is-attention-mechanism"
+        ]
       ],
       "Autoencoder": [
-            "TensorFlow: Intro to Autoencoders",
-            "https://www.tensorflow.org/tutorials/generative/autoencoder"
+        [
+          "Stanford CS294A: Autoencoders tutorial",
+          "https://web.stanford.edu/class/cs294a/tutorial"
+        ]
+      ],
+      "Backpropagation": [
+        [
+          "Stanford HAI: What is Backpropagation?",
+          "https://hai.stanford.edu/ai-definitions/what-is-backpropagation"
+        ]
+      ],
+      "Benchmark": [
+        [
+          "Stanford HAI: What are AI Benchmarks?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ai-benchmarks"
+        ]
+      ],
+      "Chain of Thought": [
+        [
+          "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+          "https://arxiv.org/abs/2201.11903"
+        ]
+      ],
+      "Chunking": [
+        [
+          "Academic study: Evaluating Chunking Strategies for RAG",
+          "https://arxiv.org/abs/2607.01852"
+        ]
+      ],
+      "Classification": [
+        [
+          "Dive into Deep Learning: Softmax Regression",
+          "https://d2l.ai/chapter_linear-classification/softmax-regression.html"
+        ]
+      ],
+      "Context Window": [
+        [
+          "Stanford HAI: What is a Context Window?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-context-window"
+        ]
+      ],
+      "Diffusion Model": [
+        [
+          "Stanford HAI: What are Diffusion Models?",
+          "https://hai.stanford.edu/ai-definitions/what-are-diffusion-models"
+        ]
+      ],
+      "Distillation": [
+        [
+          "Distilling the Knowledge in a Neural Network",
+          "https://arxiv.org/abs/1503.02531"
+        ]
+      ],
+      "Embedding": [
+        [
+          "Stanford HAI: What are Embeddings?",
+          "https://hai.stanford.edu/ai-definitions/what-are-embeddings"
+        ]
+      ],
+      "Epoch": [
+        [
+          "Dive into Deep Learning: Minibatch Stochastic Gradient Descent",
+          "https://d2l.ai/chapter_optimization/minibatch-sgd.html"
+        ]
+      ],
+      "Few-shot Prompting": [
+        [
+          "Academic survey of prompting techniques",
+          "https://arxiv.org/abs/2402.07927"
+        ]
+      ],
+      "Fine-tuning": [
+        [
+          "Stanford HAI: What is Fine-Tuning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-fine-tuning"
+        ]
+      ],
+      "Foundation Model": [
+        [
+          "Stanford HAI: What are Foundation Models?",
+          "https://hai.stanford.edu/ai-definitions/what-are-foundation-models"
+        ]
+      ],
+      "Generative AI": [
+        [
+          "Stanford HAI: What is Generative AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-generative-ai"
+        ]
+      ],
+      "Gradient Descent": [
+        [
+          "Dive into Deep Learning: Gradient Descent",
+          "https://d2l.ai/chapter_optimization/gd.html"
+        ]
+      ],
+      "Guardrails": [
+        [
+          "Academic survey: Guardrails for Large Language Models",
+          "https://arxiv.org/abs/2406.02622"
+        ]
+      ],
+      "Hallucination": [
+        [
+          "Stanford HAI: What are Hallucinations?",
+          "https://hai.stanford.edu/ai-definitions/what-are-hallucinations"
+        ]
+      ],
+      "Inference": [
+        [
+          "Stanford HAI: What is Inference?",
+          "https://hai.stanford.edu/ai-definitions/what-is-inference"
+        ]
+      ],
+      "Large Language Model (LLM)": [
+        [
+          "Stanford HAI: What is an LLM?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-llm"
+        ]
+      ],
+      "Latency": [
+        [
+          "MLCommons: Inference benchmark",
+          "https://mlcommons.org/benchmarks/inference-datacenter/"
+        ]
+      ],
+      "Learning Rate": [
+        [
+          "Dive into Deep Learning: Learning Rate Scheduling",
+          "https://d2l.ai/chapter_optimization/lr-scheduler.html"
+        ]
+      ],
+      "LoRA": [
+        [
+          "LoRA: Low-Rank Adaptation of Large Language Models",
+          "https://arxiv.org/abs/2106.09685"
+        ]
+      ],
+      "Loss Function": [
+        [
+          "Stanford HAI: What is a Loss Function?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-loss-function"
+        ]
+      ],
+      "Machine Learning": [
+        [
+          "Stanford HAI: What is Machine Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-machine-learning"
+        ]
+      ],
+      "Model": [
+        [
+          "Stanford HAI: What is a Model?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-model"
+        ]
+      ],
+      "Multimodal": [
+        [
+          "Stanford HAI: What is Multimodal AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-multimodal-ai"
+        ]
+      ],
+      "Neural Network": [
+        [
+          "Stanford HAI: What is a Neural Network?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-neural-network"
+        ]
+      ],
+      "Overfitting": [
+        [
+          "Stanford HAI: What is Overfitting?",
+          "https://hai.stanford.edu/ai-definitions/what-is-overfitting"
+        ]
+      ],
+      "Parameter": [
+        [
+          "Stanford HAI: What are Parameters?",
+          "https://hai.stanford.edu/ai-definitions/what-are-parameters"
+        ]
+      ],
+      "Prompt": [
+        [
+          "Academic survey of prompting techniques",
+          "https://arxiv.org/abs/2402.07927"
+        ]
+      ],
+      "Prompt Injection": [
+        [
+          "Stanford HAI: What is Prompt Injection?",
+          "https://hai.stanford.edu/ai-definitions/what-is-prompt-injection"
+        ]
       ],
       "Quantization": [
-            "TensorFlow: Quantization aware training",
-            "https://www.tensorflow.org/model_optimization/guide/quantization/training.md"
+        [
+          "A White Paper on Neural Network Quantization",
+          "https://arxiv.org/abs/2106.08295"
+        ]
+      ],
+      "RAG": [
+        [
+          "Stanford HAI: What is RAG?",
+          "https://hai.stanford.edu/ai-definitions/what-is-rag"
+        ]
+      ],
+      "Reinforcement Learning": [
+        [
+          "Stanford HAI: What is Reinforcement Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-reinforcement-learning"
+        ]
       ],
       "RLHF": [
-            "Training language models to follow instructions with human feedback",
-            "https://arxiv.org/abs/2203.02155"
+        [
+          "Training language models to follow instructions with human feedback",
+          "https://arxiv.org/abs/2203.02155"
+        ]
+      ],
+      "Semantic Search": [
+        [
+          "Sentence-BERT: Sentence Embeddings for Semantic Search",
+          "https://arxiv.org/abs/1908.10084"
+        ]
+      ],
+      "Structured Output": [
+        [
+          "Grammar-Constrained Decoding for Structured NLP Tasks",
+          "https://arxiv.org/abs/2305.13971"
+        ]
+      ],
+      "System Prompt": [
+        [
+          "ACL: System prompt robustness and sensitivity study",
+          "https://aclanthology.org/2024.findings-emnlp.888/"
+        ]
+      ],
+      "Temperature": [
+        [
+          "ACL: A Systematic Characterization of Sampling Algorithms for Open-ended Language Generation",
+          "https://aclanthology.org/2020.aacl-main.36/"
+        ]
+      ],
+      "Token": [
+        [
+          "Stanford HAI: What is Tokenization?",
+          "https://hai.stanford.edu/ai-definitions/what-is-tokenization"
+        ]
+      ],
+      "Tool Use": [
+        [
+          "ACL survey: Tool Learning with Foundation Models",
+          "https://aclanthology.org/2025.coling-main.652/"
+        ]
+      ],
+      "Transformer": [
+        [
+          "Stanford HAI: What is a Transformer?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-transformer"
+        ]
+      ],
+      "Vector Database": [
+        [
+          "Stanford HAI: What is a Vector Database?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-vector-database"
+        ]
+      ],
+      "Zero-shot": [
+        [
+          "Academic survey of prompting techniques",
+          "https://arxiv.org/abs/2402.07927"
+        ]
+      ],
+      "Artificial Intelligence": [
+        [
+          "Stanford HAI: What is Artificial Intelligence?",
+          "https://hai.stanford.edu/ai-definitions/what-is-artificial-intelligence-ai"
+        ]
+      ],
+      "Deep Learning": [
+        [
+          "Stanford HAI: What is Deep Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-deep-learning"
+        ]
+      ],
+      "Hyperparameter": [
+        [
+          "Stanford HAI: What is a Hyperparameter?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-hyperparameter"
+        ]
+      ],
+      "Latent Space": [
+        [
+          "Stanford HAI: What is Latent Space?",
+          "https://hai.stanford.edu/ai-definitions/what-is-latent-space"
+        ]
+      ],
+      "Vision-Language Model": [
+        [
+          "Survey of vision-language models",
+          "https://arxiv.org/abs/2306.13549"
+        ]
+      ],
+      "Mixture of Experts": [
+        [
+          "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer",
+          "https://arxiv.org/abs/1701.06538"
+        ]
+      ],
+      "Small Language Model": [
+        [
+          "ACL survey: Small Language Models",
+          "https://aclanthology.org/2025.ranlp-1.93/"
+        ]
+      ],
+      "Reasoning Model": [
+        [
+          "Stanford HAI: What is a Reasoning Model?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-reasoning-model"
+        ]
+      ],
+      "Training": [
+        [
+          "Dive into Deep Learning: Introduction",
+          "https://d2l.ai/chapter_introduction/index.html"
+        ]
+      ],
+      "Pretraining": [
+        [
+          "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+          "https://arxiv.org/abs/1810.04805"
+        ]
+      ],
+      "PEFT": [
+        [
+          "TMLR survey: Parameter-Efficient Fine-Tuning",
+          "https://mlanthology.org/tmlr/2024/han2024tmlr-parameterefficient/"
+        ]
+      ],
+      "Batch": [
+        [
+          "Dive into Deep Learning: Minibatch Stochastic Gradient Descent",
+          "https://d2l.ai/chapter_optimization/minibatch-sgd.html"
+        ]
+      ],
+      "DPO": [
+        [
+          "Direct Preference Optimization",
+          "https://arxiv.org/abs/2305.18290"
+        ]
+      ],
+      "Top-p": [
+        [
+          "ACL: A Systematic Characterization of Sampling Algorithms for Open-ended Language Generation",
+          "https://aclanthology.org/2020.aacl-main.36/"
+        ]
+      ],
+      "Context Engineering": [
+        [
+          "Academic survey: Context Engineering for Large Language Models",
+          "https://arxiv.org/abs/2507.13334"
+        ]
+      ],
+      "Grounding": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Hybrid Search": [
+        [
+          "Academic study: Domain-specific Question Answering with Hybrid Search",
+          "https://arxiv.org/abs/2412.03736"
+        ]
+      ],
+      "Reranker": [
+        [
+          "Passage Re-ranking with BERT",
+          "https://arxiv.org/abs/1901.04085"
+        ]
+      ],
+      "Tool Calling": [
+        [
+          "ACL survey: Tool Learning with Foundation Models",
+          "https://aclanthology.org/2025.coling-main.652/"
+        ],
+        [
+          "Model Context Protocol: Specification",
+          "https://modelcontextprotocol.io/specification/latest"
+        ]
+      ],
+      "MCP": [
+        [
+          "Model Context Protocol: Specification",
+          "https://modelcontextprotocol.io/specification/latest"
+        ]
+      ],
+      "Planning": [
+        [
+          "Academic survey: Understanding the Planning of LLM Agents",
+          "https://arxiv.org/abs/2402.02716"
+        ]
+      ],
+      "Agent Memory": [
+        [
+          "ACL survey: Memory in the Age of AI Agents",
+          "https://aclanthology.org/2026.findings-acl.2069/"
+        ]
+      ],
+      "Human-in-the-loop": [
+        [
+          "Stanford HAI: What is Human-in-the-Loop?",
+          "https://hai.stanford.edu/ai-definitions/what-is-human-in-the-loop"
+        ]
+      ],
+      "Multi-agent System": [
+        [
+          "Academic survey: Multi-Agent Systems with Large Language Models",
+          "https://arxiv.org/abs/2402.01680"
+        ]
+      ],
+      "Indirect Prompt Injection": [
+        [
+          "OWASP: Prompt Injection",
+          "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
+        ]
+      ],
+      "Jailbreak": [
+        [
+          "OWASP: Prompt Injection",
+          "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
+        ]
+      ],
+      "Tool Poisoning": [
+        [
+          "OWASP: MCP Tool Poisoning",
+          "https://owasp.org/www-community/attacks/MCP_Tool_Poisoning"
+        ]
+      ],
+      "MCP Poisoning": [
+        [
+          "OWASP: MCP Security Cheat Sheet",
+          "https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html"
+        ],
+        [
+          "OWASP: MCP Tool Poisoning",
+          "https://owasp.org/www-community/attacks/MCP_Tool_Poisoning"
+        ]
+      ],
+      "RAG Poisoning": [
+        [
+          "Academic study: Poisoning Attacks on Retrieval-Augmented Generation",
+          "https://arxiv.org/abs/2504.03957"
+        ],
+        [
+          "OWASP: Data and Model Poisoning",
+          "https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/"
+        ]
       ],
       "Slopsquatting": [
-            "LLM Package Hallucinations and Slopsquatting",
-            "https://arxiv.org/abs/2605.17062"
+        [
+          "Academic study: Slopsquatting and hallucinated package names",
+          "https://arxiv.org/abs/2605.17062"
+        ]
+      ],
+      "Data Exfiltration": [
+        [
+          "OWASP: AI Agent Security Cheat Sheet",
+          "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html"
+        ],
+        [
+          "OWASP: Sensitive Information Disclosure",
+          "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"
+        ]
+      ],
+      "Least Privilege": [
+        [
+          "OWASP: AI Agent Security Cheat Sheet",
+          "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html"
+        ]
+      ],
+      "Sandboxing": [
+        [
+          "OWASP: AI Agent Security Cheat Sheet",
+          "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html"
+        ]
+      ],
+      "Supply-chain Security": [
+        [
+          "OWASP: Supply Chain",
+          "https://genai.owasp.org/llmrisk/llm032025-supply-chain/"
+        ]
+      ],
+      "Model Provenance": [
+        [
+          "Academic paper: Model Provenance via Model DNA",
+          "https://arxiv.org/abs/2308.02121"
+        ]
+      ],
+      "Model Theft": [
+        [
+          "Stealing Machine Learning Models via Prediction APIs",
+          "https://arxiv.org/abs/1609.02943"
+        ]
+      ],
+      "Adversarial Example": [
+        [
+          "NIST: Adversarial Machine Learning Taxonomy and Terminology",
+          "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations"
+        ]
+      ],
+      "Red Teaming": [
+        [
+          "NIST: AI Test, Evaluation, Validation and Verification (TEVV)",
+          "https://www.nist.gov/ai-test-evaluation-validation-and-verification-tevv"
+        ],
+        [
+          "NIST AI RMF: Generative AI Profile",
+          "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+        ]
+      ],
+      "Metric": [
+        [
+          "NIST: AI Test, Evaluation, Validation and Verification (TEVV)",
+          "https://www.nist.gov/ai-test-evaluation-validation-and-verification-tevv"
+        ]
+      ],
+      "Precision": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Recall": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "F1 Score": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Perplexity": [
+        [
+          "Dive into Deep Learning: Language Models",
+          "https://d2l.ai/chapter_recurrent-neural-networks/language-model.html"
+        ]
+      ],
+      "Robustness": [
+        [
+          "NIST: Adversarial Machine Learning Taxonomy and Terminology",
+          "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations"
+        ]
+      ],
+      "Throughput": [
+        [
+          "MLCommons: Inference benchmark",
+          "https://mlcommons.org/benchmarks/inference-datacenter/"
+        ]
+      ],
+      "GPU": [
+        [
+          "Stanford HAI: What is a GPU?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-gpu"
+        ]
+      ],
+      "NPU": [
+        [
+          "Academic survey: AI Accelerator Survey and Trends",
+          "https://arxiv.org/abs/2109.08957"
+        ]
+      ],
+      "Edge AI": [
+        [
+          "Academic survey: Optimizing Edge AI",
+          "https://arxiv.org/abs/2501.03265"
+        ]
+      ],
+      "Caching": [
+        [
+          "Stanford CS110: Principles of System Design — Caching",
+          "https://web.stanford.edu/class/archive/cs/cs110/cs110.1182/autumn-2017/lectures/18-principles-of-system-design.html"
+        ]
+      ],
+      "Prompt Caching": [
+        [
+          "vLLM: Automatic Prefix Caching",
+          "https://docs.vllm.ai/en/latest/design/prefix_caching/"
+        ]
+      ],
+      "Observability": [
+        [
+          "OpenTelemetry: What is observability?",
+          "https://opentelemetry.io/docs/what-is-opentelemetry/"
+        ]
+      ],
+      "Tracing": [
+        [
+          "OpenTelemetry: Traces",
+          "https://opentelemetry.io/docs/concepts/signals/traces/"
+        ]
       ],
       "AI Gateway": [
-            "Microsoft Learn: AI gateway in Azure API Management",
-            "https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities"
+        [
+          "CNCF: Gateway API Inference Extension",
+          "https://www.cncf.io/blog/2025/04/21/deep-dive-into-the-gateway-api-inference-extension/"
+        ]
+      ],
+      "Moderation": [
+        [
+          "ACL survey: Recent Advances in Online Hate Speech Moderation",
+          "https://aclanthology.org/2024.findings-emnlp.254/"
+        ]
+      ],
+      "AI Governance": [
+        [
+          "NIST AI Risk Management Framework",
+          "https://www.nist.gov/itl/ai-risk-management-framework"
+        ]
+      ],
+      "Model Card": [
+        [
+          "Model Cards for Model Reporting",
+          "https://arxiv.org/abs/1810.03993"
+        ]
+      ],
+      "Policy": [
+        [
+          "NIST AI Risk Management Framework",
+          "https://www.nist.gov/itl/ai-risk-management-framework"
+        ]
+      ],
+      "Evaluation": [
+        [
+          "NIST: AI Test, Evaluation, Validation and Verification (TEVV)",
+          "https://www.nist.gov/ai-test-evaluation-validation-and-verification-tevv"
+        ]
+      ],
+      "Narrow AI": [
+        [
+          "Stanford HAI: Brief Definitions of Key Terms in AI",
+          "https://hai.stanford.edu/policy/brief-definitions-of-key-terms-in-ai"
+        ]
+      ],
+      "Regularization": [
+        [
+          "Dive into Deep Learning: Weight Decay and Regularization",
+          "https://d2l.ai/chapter_linear-regression/weight-decay.html"
+        ]
+      ],
+      "Sampling": [
+        [
+          "ACL: A Systematic Characterization of Sampling Algorithms for Open-ended Language Generation",
+          "https://aclanthology.org/2020.aacl-main.36/"
+        ]
+      ],
+      "Supervised Learning": [
+        [
+          "Stanford HAI: What is Supervised Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-supervised-learning"
+        ]
+      ],
+      "Validation Set": [
+        [
+          "Dive into Deep Learning: Generalization",
+          "https://d2l.ai/chapter_linear-regression/generalization.html"
+        ]
+      ],
+      "Algorithm": [
+        [
+          "Stanford HAI: What is an Algorithm?",
+          "https://hai.stanford.edu/ai-definitions/what-is-an-algorithm"
+        ]
+      ],
+      "Computer Vision": [
+        [
+          "Stanford HAI: What is Computer Vision?",
+          "https://hai.stanford.edu/ai-definitions/what-is-computer-vision"
+        ]
+      ],
+      "Natural Language Processing": [
+        [
+          "Stanford HAI: What is NLP?",
+          "https://hai.stanford.edu/ai-definitions/what-is-nlp"
+        ]
+      ],
+      "Robotics": [
+        [
+          "Stanford HAI: What are Robotics?",
+          "https://hai.stanford.edu/ai-definitions/what-are-robotics"
+        ]
+      ],
+      "Artificial Superintelligence": [
+        [
+          "UC Berkeley AI: AGI, ASI, and superintelligence",
+          "https://people.eecs.berkeley.edu/~russell/research/future/q-and-a.html"
+        ]
+      ],
+      "Artificial Narrow Intelligence": [
+        [
+          "Stanford HAI: Brief Definitions of Key Terms in AI",
+          "https://hai.stanford.edu/policy/brief-definitions-of-key-terms-in-ai"
+        ]
+      ],
+      "AI Safety": [
+        [
+          "Stanford HAI: What is AI Safety?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ai-safety"
+        ]
+      ],
+      "Bias in AI": [
+        [
+          "Stanford HAI: What is Bias in AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-bias-in-ai"
+        ]
+      ],
+      "Explainable AI": [
+        [
+          "Stanford HAI: What is Explainable AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-explainable-ai-xai"
+        ]
+      ],
+      "Interpretability": [
+        [
+          "Stanford HAI: What is Interpretability?",
+          "https://hai.stanford.edu/ai-definitions/what-is-interpretability"
+        ]
+      ],
+      "Responsible AI": [
+        [
+          "Stanford HAI: What is Responsible AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-responsible-ai"
+        ]
+      ],
+      "Ethical AI": [
+        [
+          "Stanford HAI: What is Ethical AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ethical-ai"
+        ]
+      ],
+      "AI Fluency": [
+        [
+          "Stanford HAI: What is AI Fluency?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ai-fluency"
+        ]
+      ],
+      "Human-Centered AI": [
+        [
+          "Stanford HAI: What is Human-Centered AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-human-centered-ai"
+        ]
+      ],
+      "Bias": [
+        [
+          "Stanford HAI: What is Bias in AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-bias-in-ai"
+        ]
+      ],
+      "Fairness": [
+        [
+          "NIST AI RMF: Fairness with Harmful Bias Managed",
+          "https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/"
+        ]
+      ],
+      "Unsupervised Learning": [
+        [
+          "Stanford HAI: What is Unsupervised Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-unsupervised-learning"
+        ]
+      ],
+      "Self-Supervised Learning": [
+        [
+          "Stanford HAI: What is Self-Supervised Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-self-supervised-learning"
+        ]
+      ],
+      "Transfer Learning": [
+        [
+          "Stanford HAI: What is Transfer Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-transfer-learning"
+        ]
+      ],
+      "Federated Learning": [
+        [
+          "Stanford HAI: What is Federated Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-federated-learning"
+        ]
+      ],
+      "Contrastive Learning": [
+        [
+          "Stanford HAI: What is Contrastive Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-contrastive-learning"
+        ]
+      ],
+      "Data Augmentation": [
+        [
+          "Stanford HAI: What is Data Augmentation?",
+          "https://hai.stanford.edu/ai-definitions/what-is-data-augmentation"
+        ]
+      ],
+      "Prompt Engineering": [
+        [
+          "Stanford HAI: What is Prompt Engineering?",
+          "https://hai.stanford.edu/ai-definitions/what-is-prompt-engineering"
+        ]
+      ],
+      "Few-Shot Learning": [
+        [
+          "Stanford HAI: What is Few-Shot Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-few-shot-learning"
+        ]
+      ],
+      "Zero-Shot Learning": [
+        [
+          "Stanford HAI: What is Zero-Shot Learning?",
+          "https://hai.stanford.edu/ai-definitions/what-is-zero-shot-learning"
+        ]
+      ],
+      "Tokenization": [
+        [
+          "Stanford HAI: What is Tokenization?",
+          "https://hai.stanford.edu/ai-definitions/what-is-tokenization"
+        ]
+      ],
+      "Generative Adversarial Network": [
+        [
+          "Stanford HAI: What are GANs?",
+          "https://hai.stanford.edu/ai-definitions/what-are-gans"
+        ]
+      ],
+      "Vision Transformer": [
+        [
+          "Stanford HAI: What is a Vision Transformer?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-vit"
+        ]
+      ],
+      "Knowledge Graph": [
+        [
+          "Stanford HAI: What is a Knowledge Graph?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-knowledge-graph"
+        ]
+      ],
+      "Tensor": [
+        [
+          "Stanford HAI: What is a Tensor?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-tensor"
+        ]
+      ],
+      "MLOps": [
+        [
+          "Stanford HAI: What are MLOps?",
+          "https://hai.stanford.edu/ai-definitions/what-are-mlops"
+        ]
+      ],
+      "LLMOps": [
+        [
+          "Stanford HAI: What are LLMOps?",
+          "https://hai.stanford.edu/ai-definitions/what-are-llmops"
+        ]
+      ],
+      "Model Drift": [
+        [
+          "Stanford HAI: What is Model Drift?",
+          "https://hai.stanford.edu/ai-definitions/what-is-model-drift"
+        ]
+      ],
+      "Training Data": [
+        [
+          "Stanford HAI: What is Training Data?",
+          "https://hai.stanford.edu/ai-definitions/what-is-training-data"
+        ]
+      ],
+      "Synthetic Data": [
+        [
+          "Stanford HAI: What is Synthetic Data?",
+          "https://hai.stanford.edu/ai-definitions/what-is-synthetic-data"
+        ]
+      ],
+      "Scaling Laws": [
+        [
+          "Stanford HAI: What are Scaling Laws?",
+          "https://hai.stanford.edu/ai-definitions/what-are-scaling-laws"
+        ]
+      ],
+      "Sentiment Analysis": [
+        [
+          "Dive into Deep Learning: Sentiment Analysis",
+          "https://d2l.ai/chapter_natural-language-processing-applications/sentiment-analysis-and-dataset.html"
+        ]
+      ],
+      "Data Mining": [
+        [
+          "Stanford HAI: What is Data Mining?",
+          "https://hai.stanford.edu/ai-definitions/what-is-data-mining"
+        ]
+      ],
+      "Decision Tree": [
+        [
+          "Stanford HAI: What is a Decision Tree?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-decision-tree"
+        ]
+      ],
+      "Ensemble Methods": [
+        [
+          "Stanford HAI: What are Ensemble Methods?",
+          "https://hai.stanford.edu/ai-definitions/what-are-ensemble-methods"
+        ]
+      ],
+      "k-Nearest Neighbors": [
+        [
+          "Stanford HAI: What is k-NN?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-k-nn"
+        ]
+      ],
+      "Bayesian Network": [
+        [
+          "Stanford HAI: What are Bayesian Networks?",
+          "https://hai.stanford.edu/ai-definitions/what-are-bayesian-networks"
+        ]
+      ],
+      "Dimensionality Reduction": [
+        [
+          "Stanford HAI: What is Dimensionality Reduction?",
+          "https://hai.stanford.edu/ai-definitions/what-is-dimensionality-reduction"
+        ]
+      ],
+      "Markov Chain": [
+        [
+          "Stanford HAI: What is a Markov Chain?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-markov-chain"
+        ]
+      ],
+      "Open-Weight Model": [
+        [
+          "Stanford HAI: What is an Open-Weight Model?",
+          "https://hai.stanford.edu/ai-definitions/what-is-an-open-weight-model"
+        ]
+      ],
+      "Open Source": [
+        [
+          "Stanford HAI: What is Open Source?",
+          "https://hai.stanford.edu/ai-definitions/what-is-open-source"
+        ]
+      ],
+      "Closed Source": [
+        [
+          "Stanford HAI: What is Closed Source?",
+          "https://hai.stanford.edu/ai-definitions/what-is-closed-source"
+        ]
+      ],
+      "Chatbot": [
+        [
+          "Stanford HAI: What is a Chatbot?",
+          "https://hai.stanford.edu/ai-definitions/what-is-a-chatbot"
+        ]
+      ],
+      "Conversational AI": [
+        [
+          "ACL: Neural Approaches to Conversational AI",
+          "https://aclanthology.org/P18-5002/"
+        ]
+      ],
+      "Automation": [
+        [
+          "Stanford HAI: Automation",
+          "https://hai.stanford.edu/automation"
+        ]
+      ],
+      "Anthropomorphism": [
+        [
+          "Academic review: Anthropomorphism of AI",
+          "https://link.springer.com/article/10.1007/s43681-024-00419-4"
+        ]
+      ],
+      "Predictive Analytics": [
+        [
+          "Stanford HAI: What are Predictive Analytics?",
+          "https://hai.stanford.edu/ai-definitions/what-are-predictive-analytics"
+        ]
+      ],
+      "Feedback Loop": [
+        [
+          "Academic paper: Analysis of hidden feedback loops in continuous ML systems",
+          "https://arxiv.org/abs/2101.05673"
+        ]
+      ],
+      "Emergent Behavior": [
+        [
+          "Emergent Abilities of Large Language Models",
+          "https://arxiv.org/abs/2206.07682"
+        ],
+        [
+          "Are Emergent Abilities of Large Language Models a Mirage?",
+          "https://arxiv.org/abs/2304.15004"
+        ]
+      ],
+      "Big Data": [
+        [
+          "Stanford HAI: What is Big Data?",
+          "https://hai.stanford.edu/ai-definitions/what-is-big-data"
+        ]
+      ],
+      "Zero Data Retention": [
+        [
+          "OpenAI API: Data controls and Zero Data Retention",
+          "https://platform.openai.com/docs/models/default-usage-policies-by-endpoint"
+        ]
+      ],
+      "Differential Privacy": [
+        [
+          "NIST SP 800-226: Guidelines for Evaluating Differential Privacy Guarantees",
+          "https://csrc.nist.gov/pubs/sp/800/226/final"
+        ]
+      ],
+      "AI Toxicity": [
+        [
+          "RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models",
+          "https://arxiv.org/abs/2009.11462"
+        ]
+      ],
+      "Agentic AI": [
+        [
+          "Stanford HAI: What is Agentic AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-agentic-ai"
+        ]
+      ],
+      "Traditional AI": [
+        [
+          "Stanford HAI: What is Traditional AI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-traditional-ai"
+        ]
+      ],
+      "Expert System": [
+        [
+          "Stanford HAI: What is an Expert System?",
+          "https://hai.stanford.edu/ai-definitions/what-is-an-expert-system"
+        ]
+      ],
+      "Human-Computer Interaction": [
+        [
+          "Stanford HAI: What is HCI?",
+          "https://hai.stanford.edu/ai-definitions/what-is-hci"
+        ]
+      ],
+      "Turing Test": [
+        [
+          "Stanford HAI: What is the Turing Test?",
+          "https://hai.stanford.edu/ai-definitions/what-is-the-turing-test"
+        ]
+      ],
+      "Representation Learning": [
+        [
+          "Representation Learning: A Review and New Perspectives",
+          "https://arxiv.org/abs/1206.5538"
+        ]
+      ],
+      "Feature Engineering": [
+        [
+          "Stanford CS229: Machine Learning course materials",
+          "https://cs229.stanford.edu/syllabus-new.html"
+        ]
+      ],
+      "Clustering": [
+        [
+          "Stanford CS229: k-means clustering notes",
+          "https://see.stanford.edu/materials/aimlcs229/cs229-notes7a.pdf"
+        ]
+      ],
+      "Regression": [
+        [
+          "Dive into Deep Learning: Linear Regression",
+          "https://d2l.ai/chapter_linear-regression/linear-regression.html"
+        ]
+      ],
+      "Monitoring": [
+        [
+          "NIST: Challenges to the Monitoring of Deployed AI Systems",
+          "https://www.nist.gov/publications/challenges-monitoring-deployed-ai-systems-center-ai-standards-and-innovation"
+        ]
+      ],
+      "Privacy": [
+        [
+          "NIST Privacy Framework",
+          "https://www.nist.gov/privacy-framework"
+        ]
+      ],
+      "AI Alignment": [
+        [
+          "Stanford HAI: What is AI Alignment?",
+          "https://hai.stanford.edu/ai-definitions/what-is-ai-alignment"
+        ]
+      ],
+      "Probabilistic Model": [
+        [
+          "Stanford CS109: Probabilistic Models",
+          "https://web.stanford.edu/class/cs109/lectures/10-ProbabilisticModels/"
+        ]
+      ],
+      "Speculative Decoding": [
+        [
+          "Fast Inference from Transformers via Speculative Decoding",
+          "https://arxiv.org/abs/2211.17192"
+        ]
+      ],
+      "Graph of Thought": [
+        [
+          "Graph of Thoughts: Solving Elaborate Problems with Large Language Models",
+          "https://arxiv.org/abs/2308.09687"
+        ]
+      ],
+      "Tree of Thought": [
+        [
+          "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+          "https://arxiv.org/abs/2305.10601"
+        ]
+      ],
+      "GEval": [
+        [
+          "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment",
+          "https://arxiv.org/abs/2303.16634"
+        ]
+      ],
+      "DAG": [
+        [
+          "DeepEval: DAG Metric documentation",
+          "https://deepeval.com/docs/metrics-dag"
+        ]
+      ],
+      "QAG": [
+        [
+          "Academic study of Question Answer Generation",
+          "https://arxiv.org/abs/2406.17990"
+        ]
+      ],
+      "Faithfulness": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Groundedness": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Answer Relevance": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Context Relevance": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Context Precision": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Context Recall": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Response Completeness": [
+        [
+          "Academic study: RAG answer correctness and completeness evaluation",
+          "https://arxiv.org/abs/2406.18064"
+        ]
+      ],
+      "Correctness": [
+        [
+          "Academic study: RAG answer correctness and completeness evaluation",
+          "https://arxiv.org/abs/2406.18064"
+        ]
+      ],
+      "Context Utilization": [
+        [
+          "Academic study: Retrieval Utilization Across Model Scale",
+          "https://arxiv.org/abs/2603.11513"
+        ]
+      ],
+      "Citation Correctness": [
+        [
+          "Enabling Large Language Models to Generate Text with Citations",
+          "https://arxiv.org/abs/2305.14627"
+        ]
+      ],
+      "Citation Completeness": [
+        [
+          "Enabling Large Language Models to Generate Text with Citations",
+          "https://arxiv.org/abs/2305.14627"
+        ]
+      ],
+      "LLM-as-a-Judge": [
+        [
+          "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+          "https://arxiv.org/abs/2306.05685"
+        ]
+      ],
+      "Ground Truth": [
+        [
+          "NIST: Ground Truth and Benchmarks for Performance Evaluation",
+          "https://www.nist.gov/publications/ground-truth-and-benchmarks-performance-evaluation"
+        ]
+      ],
+      "Golden Dataset": [
+        [
+          "NIST: Ground Truth and Benchmarks for Performance Evaluation",
+          "https://www.nist.gov/publications/ground-truth-and-benchmarks-performance-evaluation"
+        ]
+      ],
+      "End-to-End RAG Evaluation": [
+        [
+          "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+          "https://arxiv.org/abs/2309.15217"
+        ]
+      ],
+      "Retrieval Evaluation": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Precision@K": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Recall@K": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Hit Rate": [
+        [
+          "TorchMetrics: Retrieval Hit Rate",
+          "https://lightning.ai/docs/torchmetrics/stable/retrieval/hit_rate.html"
+        ]
+      ],
+      "MRR": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "nDCG": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "MAP": [
+        [
+          "Stanford IR Book: Evaluation of ranked retrieval results",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"
+        ]
+      ],
+      "Top-K": [
+        [
+          "Stanford IR Book: Top-K document retrieval",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/inexact-top-k-document-retrieval-1.html"
+        ]
+      ],
+      "Chunk Size": [
+        [
+          "Academic study: Systematic Analysis of Chunking Strategies",
+          "https://arxiv.org/abs/2601.14123"
+        ]
+      ],
+      "Chunk Overlap": [
+        [
+          "Academic study: Systematic Analysis of Chunking Strategies",
+          "https://arxiv.org/abs/2601.14123"
+        ]
+      ],
+      "Similarity Threshold": [
+        [
+          "Qdrant: Filtering vector results by similarity score",
+          "https://qdrant.tech/documentation/search/search/"
+        ]
+      ],
+      "Embedding Model": [
+        [
+          "Sentence-BERT: Sentence Embeddings for Semantic Search",
+          "https://arxiv.org/abs/1908.10084"
+        ]
+      ],
+      "Vector Similarity": [
+        [
+          "Stanford IR Book: Vector-space relatedness and cosine similarity",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/document-representations-and-measures-of-relatedness-in-vector-spaces-1.html"
+        ]
+      ],
+      "Cosine Similarity": [
+        [
+          "Stanford IR Book: Vector-space relatedness and cosine similarity",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/document-representations-and-measures-of-relatedness-in-vector-spaces-1.html"
+        ]
+      ],
+      "Query Rewriting": [
+        [
+          "Stanford IR Book: Query reformulation",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/global-methods-for-query-reformulation-1.html"
+        ]
+      ],
+      "Query Expansion": [
+        [
+          "Stanford IR Book: Query expansion",
+          "https://nlp.stanford.edu/IR-book/html/htmledition/automatic-thesaurus-generation-1.html"
+        ]
+      ],
+      "Metadata Filtering": [
+        [
+          "Qdrant: Filtering",
+          "https://qdrant.tech/documentation/search/filtering/"
+        ]
+      ],
+      "RRF": [
+        [
+          "University of Waterloo: Reciprocal Rank Fusion",
+          "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf"
+        ]
+      ],
+      "Context Window Allocation": [
+        [
+          "Academic study: Budget-Constrained Multi-Hop RAG Context Packing",
+          "https://arxiv.org/abs/2607.00725"
+        ]
+      ],
+      "RAG Latency": [
+        [
+          "Academic study: Cost-Aware Query Routing in RAG",
+          "https://arxiv.org/abs/2606.02581"
+        ]
+      ],
+      "Token Usage": [
+        [
+          "Academic study: Cost-Aware Query Routing in RAG",
+          "https://arxiv.org/abs/2606.02581"
+        ]
+      ],
+      "Cost per Query": [
+        [
+          "Academic study: Cost-Aware Query Routing in RAG",
+          "https://arxiv.org/abs/2606.02581"
+        ]
       ]
-};
-    const categoryReferenceKeys = {
-      Agents: ["ibmAiAgents", "mcpSpec"],
-      Applications: ["aiOverview", "ibmAutomation"],
-      Evaluation: ["aiRmf", "adversarialMl"],
-      Foundations: ["aiOverview", "ibmMachineLearning"],
-      Governance: ["aiGovernance", "aiPrinciples"],
-      Models: ["ibmLlm", "arxivAttention"],
-      Operations: ["ibmMLOps", "aiRmf"],
-      Prompting: ["azureOpenAiPromptEngineering", "ibmLlm"],
-      Reliability: ["ibmHallucinations", "aiRmf"],
-      Retrieval: ["azureRag", "azureAiSearchVectors"],
-      Security: ["aiRmf", "owaspPromptInjection"],
-      Tasks: ["ibmClassification", "ibmSupervisedLearning"],
-      Training: ["ibmMachineLearning", "deepLearning"]
     };
 
-    const topicReferenceKeys = {
-      "Agent": ["ibmAiAgents", "mcpSpec"],
-      "Alignment": ["aiRmf", "ibmResponsibleAi"],
-      "Artificial General Intelligence (AGI)": ["aiOverview", "aiSafety"],
-      "Attention": ["arxivAttention", "ibmLlm"],
-      "Autoencoder": ["deepLearning", "ibmNeuralNetworks"],
-      "Backpropagation": ["deepLearning", "ibmNeuralNetworks"],
-      "Benchmark": ["aiRmf"],
-      "Chain of Thought": ["arxivCoT", "azureOpenAiPromptEngineering"],
-      "Speculative Decoding": ["pytorchSpeculativeDecoding"],
-      "Chunking": ["azureChunking", "azureRag"],
-      "Classification": ["ibmClassification", "ibmSupervisedLearning"],
-      "Context Window": ["ibmLlm", "azureOpenAiPromptEngineering"],
-      "Diffusion Model": ["arxivDiffusion", "genAi"],
-      "Distillation": ["ibmLlm", "deepLearning"],
-      "Embedding": ["ibmEmbeddings", "azureAiSearchVectors"],
-      "Epoch": ["ibmMachineLearning", "deepLearning"],
-      "Few-shot Prompting": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Fine-tuning": ["ibmFineTuning", "arxivLoRa"],
-      "Foundation Model": ["genAi", "ibmLlm"],
-      "Generative AI": ["genAi", "ibmLlm"],
-      "Gradient Descent": ["deepLearning", "ibmMachineLearning"],
-      "Guardrails": ["aiRmf", "owaspPromptInjection"],
-      "Hallucination": ["ibmHallucinations", "azureRag"],
-      "Inference": ["ibmLlm", "ibmMLOps"],
-      "Large Language Model (LLM)": ["ibmLlm", "arxivAttention"],
-      "Latency": ["ibmMLOps", "azureRag"],
-      "Learning Rate": ["deepLearning", "ibmMachineLearning"],
-      "LoRA": ["arxivLoRa", "ibmFineTuning"],
-      "Loss Function": ["ibmMachineLearning", "deepLearning"],
-      "Machine Learning": ["ibmMachineLearning", "aiOverview"],
-      "Model": ["ibmMachineLearning", "aiOverview"],
-      "Multimodal": ["genAi", "ibmLlm"],
-      "Neural Network": ["ibmNeuralNetworks", "deepLearning"],
-      "Overfitting": ["ibmOverfitting", "ibmMachineLearning"],
-      "Parameter": ["ibmLlm", "deepLearning"],
-      "Prompt": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Prompt Injection": ["owaspPromptInjection", "owaspImproperOutput"],
-      "Quantization": ["ibmLlm", "ibmMLOps"],
-      "RAG": ["azureRag", "ibmVectorDatabase"],
-      "Reinforcement Learning": ["ibmReinforcementLearning", "aiRmf"],
-      "RLHF": ["ibmReinforcementLearning", "ibmResponsibleAi"],
-      "Semantic Search": ["azureSemanticSearch", "ibmVectorDatabase"],
-      "Structured Output": ["azureOpenAiStructuredOutputs", "owaspImproperOutput"],
-      "System Prompt": ["azureOpenAiPromptEngineering", "owaspPromptInjection"],
-      "Temperature": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Token": ["ibmLlm", "azureOpenAiPromptEngineering"],
-      "Tool Use": ["ibmAiAgents", "mcpSpec"],
-      "Transformer": ["arxivAttention", "ibmLlm"],
-      "Vector Database": ["ibmVectorDatabase", "azureAiSearchVectors"],
-      "Zero-shot": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Artificial Intelligence": ["aiOverview", "aiPrinciples"],
-      "Deep Learning": ["deepLearning", "ibmNeuralNetworks"],
-      "Hyperparameter": ["ibmMachineLearning", "deepLearning"],
-      "Latent Space": ["ibmEmbeddings", "genAi"],
-      "Vision-Language Model": ["genAi", "ibmComputerVision"],
-      "Mixture of Experts": ["ibmLlm", "arxivAttention"],
-      "Small Language Model": ["ibmLlm", "ibmMLOps"],
-      "Reasoning Model": ["ibmLlm", "arxivCoT"],
-      "Training": ["ibmMachineLearning", "deepLearning"],
-      "Pretraining": ["ibmLlm", "genAi"],
-      "PEFT": ["arxivLoRa", "ibmFineTuning"],
-      "Batch": ["ibmMachineLearning", "deepLearning"],
-      "DPO": ["arxivDpo", "ibmResponsibleAi"],
-      "Top-p": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Context Engineering": ["azureOpenAiPromptEngineering", "mcpSpec"],
-      "Grounding": ["azureRag", "ibmHallucinations"],
-      "Hybrid Search": ["azureHybridSearch", "azureSemanticSearch"],
-      "Reranker": ["azureRag", "azureSemanticSearch"],
-      "Tool Calling": ["mcpSpec", "ibmAiAgents"],
-      "MCP": ["mcpSpec", "ibmAiAgents"],
-      "Planning": ["ibmAiAgents", "arxivCoT"],
-      "Agent Memory": ["ibmAiAgents", "mcpSpec"],
-      "Human-in-the-loop": ["aiRmf", "ibmResponsibleAi"],
-      "Multi-agent System": ["ibmAiAgents", "mcpSpec"],
-      "Indirect Prompt Injection": ["owaspPromptInjection", "owaspPoisoning"],
-      "Jailbreak": ["owaspPromptInjection", "aiRmf"],
-      "Tool Poisoning": ["owaspSupplyChain", "owaspPromptInjection"],
-      "MCP Poisoning": ["mcpSpec", "owaspSupplyChain"],
-      "RAG Poisoning": ["owaspPoisoning", "owaspVectorWeaknesses"],
-      "Slopsquatting": ["owaspSupplyChain", "ibmHallucinations"],
-      "Data Exfiltration": ["owaspDataDisclosure", "owaspExcessiveAgency"],
-      "Least Privilege": ["owaspExcessiveAgency", "aiRmf"],
-      "Sandboxing": ["owaspImproperOutput", "aiRmf"],
-      "Supply-chain Security": ["owaspSupplyChain", "openSourceDefinition"],
-      "Model Provenance": ["owaspSupplyChain", "aiGovernance"],
-      "Model Theft": ["owaspDataDisclosure", "aiRmf"],
-      "Adversarial Example": ["adversarialMl", "aiRmf"],
-      "Red Teaming": ["aiRmf", "adversarialMl"],
-      "Metric": ["aiRmf", "ibmMachineLearning"],
-      "Precision": ["ibmClassification", "aiRmf"],
-      "Recall": ["ibmClassification", "aiRmf"],
-      "F1 Score": ["ibmClassification", "aiRmf"],
-      "Perplexity": ["ibmLlm", "aiRmf"],
-      "Robustness": ["adversarialMl", "aiRmf"],
-      "Throughput": ["ibmMLOps", "ibmLlm"],
-      "GPU": ["deepLearning", "ibmMLOps"],
-      "NPU": ["ibmMLOps", "deepLearning"],
-      "Edge AI": ["ibmMLOps", "aiOverview"],
-      "Caching": ["ibmMLOps", "azureRag"],
-      "Prompt Caching": ["ibmLlm", "azureOpenAiPromptEngineering"],
-      "Observability": ["ibmMLOps", "aiRmf"],
-      "Tracing": ["ibmMLOps", "mcpSpec"],
-      "AI Gateway": ["aiRmf", "owaspExcessiveAgency"],
-      "Moderation": ["aiRmf", "ibmResponsibleAi"],
-      "AI Governance": ["aiGovernance", "aiRmf"],
-      "Model Card": ["arxivModelCards", "aiGovernance"],
-      "Policy": ["aiGovernance", "aiRmf"],
-      "Evaluation": ["aiRmf", "arxivModelCards"],
-      "Narrow AI": ["aiOverview", "ibmMachineLearning"],
-      "Regularization": ["ibmOverfitting", "ibmMachineLearning"],
-      "Sampling": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Supervised Learning": ["ibmSupervisedLearning", "ibmMachineLearning"],
-      "Validation Set": ["ibmOverfitting", "ibmMachineLearning"],
-      "Algorithm": ["ibmMachineLearning", "aiOverview"],
-      "Computer Vision": ["ibmComputerVision", "deepLearning"],
-      "Natural Language Processing": ["ibmNlp", "ibmLlm"],
-      "Robotics": ["aiOverview", "ibmAutomation"],
-      "Artificial Superintelligence": ["aiSafety", "aiOverview"],
-      "Artificial Narrow Intelligence": ["aiOverview", "ibmMachineLearning"],
-      "AI Safety": ["aiSafety", "aiRmf"],
-      "Bias in AI": ["nistBias", "aiRmf"],
-      "Explainable AI": ["explanatoryAi", "aiRmf"],
-      "Interpretability": ["explanatoryAi", "aiRmf"],
-      "Responsible AI": ["microsoftResponsibleAi", "ibmResponsibleAi"],
-      "Ethical AI": ["aiPrinciples", "aiRmf"],
-      "AI Fluency": ["aiPrinciples", "microsoftResponsibleAi"],
-      "Human-Centered AI": ["aiPrinciples", "ibmResponsibleAi"],
-      "Bias": ["nistBias", "aiRmf"],
-      "Fairness": ["nistBias", "aiRmf"],
-      "Unsupervised Learning": ["ibmUnsupervisedLearning", "ibmMachineLearning"],
-      "Self-Supervised Learning": ["ibmLlm", "genAi"],
-      "Transfer Learning": ["ibmFineTuning", "deepLearning"],
-      "Federated Learning": ["federatedLearning", "differentialPrivacy"],
-      "Contrastive Learning": ["deepLearning", "ibmMachineLearning"],
-      "Data Augmentation": ["ibmSyntheticData", "ibmMachineLearning"],
-      "Prompt Engineering": ["azureOpenAiPromptEngineering", "ibmLlm"],
-      "Few-Shot Learning": ["ibmMachineLearning", "ibmFineTuning"],
-      "Zero-Shot Learning": ["ibmLlm", "azureOpenAiPromptEngineering"],
-      "Tokenization": ["ibmLlm", "azureOpenAiPromptEngineering"],
-      "Generative Adversarial Network": ["arxivGan", "genAi"],
-      "Vision Transformer": ["arxivVit", "ibmComputerVision"],
-      "Knowledge Graph": ["azureRag", "azureSemanticSearch"],
-      "Tensor": ["pytorchTensors", "deepLearning"],
-      "MLOps": ["ibmMLOps", "aiRmf"],
-      "LLMOps": ["ibmMLOps", "ibmLlm"],
-      "Model Drift": ["ibmModelDrift", "ibmMLOps"],
-      "Training Data": ["ibmMachineLearning", "ibmSyntheticData"],
-      "Synthetic Data": ["ibmSyntheticData", "ibmMachineLearning"],
-      "Scaling Laws": ["arxivScaling", "ibmLlm"],
-      "Sentiment Analysis": ["ibmNlp", "ibmClassification"],
-      "Data Mining": ["dataMining", "ibmMachineLearning"],
-      "Decision Tree": ["decisionTree", "ibmSupervisedLearning"],
-      "Ensemble Methods": ["decisionTree", "ibmMachineLearning"],
-      "k-Nearest Neighbors": ["ibmClassification", "ibmMachineLearning"],
-      "Bayesian Network": ["ibmMachineLearning", "aiRmf"],
-      "Dimensionality Reduction": ["ibmMachineLearning", "featureEngineering"],
-      "Markov Chain": ["ibmReinforcementLearning", "ibmMachineLearning"],
-      "Open-Weight Model": ["openSourceDefinition", "aiGovernance"],
-      "Open Source": ["openSourceDefinition", "owaspSupplyChain"],
-      "Closed Source": ["openSourceDefinition", "aiGovernance"],
-      "Chatbot": ["chatbot", "conversationalAi"],
-      "Conversational AI": ["conversationalAi", "chatbot"],
-      "Automation": ["ibmAutomation", "ibmAiAgents"],
-      "Anthropomorphism": ["aiPrinciples", "ibmResponsibleAi"],
-      "Predictive Analytics": ["ibmPredictiveAnalytics", "ibmMachineLearning"],
-      "Feedback Loop": ["ibmMLOps", "ibmReinforcementLearning"],
-      "Emergent Behavior": ["ibmLlm", "arxivScaling"],
-      "Big Data": ["bigData", "dataMining"],
-      "Zero Data Retention": ["differentialPrivacy", "owaspDataDisclosure"],
-      "Differential Privacy": ["differentialPrivacy", "nistBias"],
-      "AI Toxicity": ["aiRmf", "ibmResponsibleAi"],
-      "Agentic AI": ["ibmAiAgents", "mcpSpec"],
-      "Traditional AI": ["aiOverview", "ibmMachineLearning"],
-      "Expert System": ["aiOverview", "ibmAutomation"],
-      "Human-Computer Interaction": ["aiPrinciples", "ibmResponsibleAi"],
-      "Turing Test": ["stanfordTuringTest", "aiOverview"],
-      "Representation Learning": ["deepLearning", "featureEngineering"],
-      "Feature Engineering": ["featureEngineering", "ibmMachineLearning"],
-      "Clustering": ["ibmClustering", "ibmUnsupervisedLearning"],
-      "Regression": ["ibmRegression", "ibmSupervisedLearning"],
-      "Monitoring": ["ibmMLOps", "aiRmf"],
-      "Privacy": ["differentialPrivacy", "owaspDataDisclosure"],
-      "AI Alignment": ["aiRmf", "ibmResponsibleAi"],
-      "Probabilistic Model": ["ibmMachineLearning", "decisionTree"]
+    const retainedStanfordTerms = new Set([
+      "Artificial Intelligence",
+      "Artificial General Intelligence (AGI)",
+      "Attention",
+      "Foundation Model",
+      "Large Language Model (LLM)",
+      "Machine Learning",
+      "Neural Network",
+      "RAG",
+      "Reinforcement Learning",
+      "Transformer",
+      "AI Safety",
+      "Human-Centered AI"
+    ]);
+
+    const wikipediaSlugs = {
+      "Alignment": "AI_alignment",
+      "Artificial General Intelligence (AGI)": "Artificial_general_intelligence",
+      "Context Window": "Context_window",
+      "Diffusion Model": "Diffusion_model",
+      "Embedding": "Embedding_(machine_learning)",
+      "Fine-tuning": "Fine-tuning_(deep_learning)",
+      "Hallucination": "Hallucination_(artificial_intelligence)",
+      "Large Language Model (LLM)": "Large_language_model",
+      "Loss Function": "Loss_function",
+      "Model": "Machine_learning_model",
+      "Multimodal": "Multimodal_learning",
+      "Neural Network": "Neural_network_(machine_learning)",
+      "Parameter": "Parameter_(artificial_intelligence)",
+      "Prompt Injection": "Prompt_injection",
+      "RAG": "Retrieval-augmented_generation",
+      "Token": "Token_(unit)",
+      "Transformer": "Transformer_(deep_learning_architecture)",
+      "Vector Database": "Vector_database",
+      "Deep Learning": "Deep_learning",
+      "Hyperparameter": "Hyperparameter_(machine_learning)",
+      "Latent Space": "Latent_space",
+      "Reasoning Model": "Reasoning_model",
+      "Human-in-the-loop": "Human-in-the-loop",
+      "GPU": "Graphics_processing_unit",
+      "Narrow AI": "Narrow_AI",
+      "Supervised Learning": "Supervised_learning",
+      "Computer Vision": "Computer_vision",
+      "Natural Language Processing": "Natural_language_processing",
+      "Artificial Narrow Intelligence": "Narrow_AI",
+      "AI Safety": "AI_safety",
+      "Bias in AI": "Algorithmic_bias",
+      "Explainable AI": "Explainable_artificial_intelligence",
+      "Responsible AI": "Responsible_AI",
+      "Ethical AI": "Ethics_of_artificial_intelligence",
+      "AI Fluency": "AI_literacy",
+      "Unsupervised Learning": "Unsupervised_learning",
+      "Self-Supervised Learning": "Self-supervised_learning",
+      "Transfer Learning": "Transfer_learning",
+      "Federated Learning": "Federated_learning",
+      "Contrastive Learning": "Contrastive_learning",
+      "Data Augmentation": "Data_augmentation",
+      "Prompt Engineering": "Prompt_engineering",
+      "Few-Shot Learning": "Few-shot_learning",
+      "Zero-Shot Learning": "Zero-shot_learning",
+      "Tokenization": "Tokenization",
+      "Generative Adversarial Network": "Generative_adversarial_network",
+      "Vision Transformer": "Vision_transformer",
+      "Knowledge Graph": "Knowledge_graph",
+      "Tensor": "Tensor_(machine_learning)",
+      "Model Drift": "Concept_drift",
+      "Training Data": "Training_data",
+      "Synthetic Data": "Synthetic_data",
+      "Scaling Laws": "Neural_scaling_law",
+      "Data Mining": "Data_mining",
+      "Decision Tree": "Decision_tree_learning",
+      "Ensemble Methods": "Ensemble_learning",
+      "k-Nearest Neighbors": "K-nearest_neighbors_algorithm",
+      "Bayesian Network": "Bayesian_network",
+      "Dimensionality Reduction": "Dimensionality_reduction",
+      "Markov Chain": "Markov_chain",
+      "Open-Weight Model": "Open_weights",
+      "Open Source": "Open-source",
+      "Closed Source": "Closed-source",
+      "Chatbot": "Chatbot",
+      "Automation": "Automation",
+      "Predictive Analytics": "Predictive_analytics",
+      "Big Data": "Big_data",
+      "Agentic AI": "Agentic_AI",
+      "Traditional AI": "Symbolic_AI",
+      "Expert System": "Expert_system",
+      "Human-Computer Interaction": "Human-computer_interaction",
+      "Turing Test": "Turing_test",
+      "AI Alignment": "AI_alignment"
     };
 
-    function referencesFromKeys(keys) {
-      return keys.map(key => referenceLibrary[key]).filter(Boolean);
+    for (const [term, references] of Object.entries(topicReferences)) {
+      const hasAlternativeSource = references.some(([label]) => !label.startsWith("Stanford HAI:"));
+      if (hasAlternativeSource && !retainedStanfordTerms.has(term)) {
+        topicReferences[term] = references.filter(([label]) => !label.startsWith("Stanford HAI:"));
+      } else if (!retainedStanfordTerms.has(term)) {
+        topicReferences[term] = references.map(([label, url]) => label.startsWith("Stanford HAI:")
+          ? [`${term} | Wikipedia`, `https://en.wikipedia.org/wiki/${wikipediaSlugs[term] || term.replace(/\s+/g, "_")}`]
+          : [label, url]);
+      }
     }
-
-    function uniqueReferences(references) {
-      const seen = new Set();
-      return references.filter(([, url]) => {
-        if (!url || seen.has(url)) return false;
-        seen.add(url);
-        return true;
-      });
-    }
-
-    const topicReferences = Object.fromEntries(
-      allEntries.map(entry => {
-        const stanfordUrl = stanfordReferenceUrls[entry.term];
-        const exactReference = exactReferenceByTerm[entry.term];
-        const exact = [
-          ...(stanfordUrl ? [[`Stanford HAI: ${entry.term}`, stanfordUrl]] : []),
-          ...(exactReference ? [exactReference] : [])
-        ];
-        const fallback = referencesFromKeys(
-          topicReferenceKeys[entry.term] || categoryReferenceKeys[entry.category] || ["aiOverview"]
-        );
-
-        return [entry.term, uniqueReferences([...exact, ...fallback]).slice(0, 2)];
-      })
-    );
 
     function safeHttpsUrl(value) {
       try {
