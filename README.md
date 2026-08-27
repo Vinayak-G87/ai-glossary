@@ -1,6 +1,6 @@
 # AI Glossary
 
-A comprehensive static AI reference with **100+ concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
+A comprehensive static AI reference with **226 concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
 
 ## Website
 
@@ -16,7 +16,7 @@ Features:
 
 ## Glossary Content
 
-**183 essential AI concepts** including:
+The published web glossary contains **226 concept terms** including:
 - **Foundations:** AI, Machine Learning, Deep Learning, Computer Vision, NLP, Robotics, AGI, ANI
 - **Models:** Transformers, GANs, Vision Transformers, Diffusion, Embeddings, Knowledge Graphs
 - **Training:** Supervised, Unsupervised, Self-Supervised, Transfer Learning, Fine-tuning, RLHF, DPO
@@ -44,4 +44,4 @@ cd future
 python3 -m unittest -v test_glossary.py
 ```
 
-All tests pass with 183 unique entries and full relationship integrity checked.
+The legacy desktop glossary in `future/` has 183 unique entries; its tests pass with full relationship integrity checked.
