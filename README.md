@@ -1,6 +1,6 @@
 # AI Glossary
 
-A comprehensive static AI reference with **100+ concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
+A comprehensive static AI reference with **226 concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
 
 ## Website
 
