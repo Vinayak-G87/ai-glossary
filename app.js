@@ -46,14 +46,165 @@ const allEntries = [{"term": "Agent", "category": "Agents", "meaning": "Software
       {"term":"Context Window Allocation","category":"RAG Configuration","meaning":"How much of the model's available context window is reserved for retrieved evidence versus instructions, history, and output.","example":"An application reserves 20,000 tokens for retrieved documents and leaves the rest for conversation and generation.","related":["Context Window","Top-K","Token Usage"],"aliases":["Context Budget"],"whyItMatters":"Overfilling context can increase cost and reduce the model's ability to focus on the most useful evidence."},
       {"term":"RAG Latency","category":"RAG Operations","meaning":"The total time required to retrieve context and generate the final RAG response.","example":"Retrieval takes 120 ms, reranking 180 ms, and generation 1.2 s, producing about 1.5 s total latency.","related":["Latency","Reranker","RAG"],"aliases":[],"whyItMatters":"Extra retrieval and reranking stages can improve quality while making the application feel slower."},
       {"term":"Token Usage","category":"RAG Operations","meaning":"The number of model input and output tokens consumed while answering a query.","example":"Retrieving ten large chunks produces 12,000 input tokens before the model writes a 500-token answer.","related":["Token","Context Window Allocation","Cost per Query"],"aliases":["Token Consumption"],"whyItMatters":"More retrieved context usually increases model cost and can increase latency."},
-      {"term":"Cost per Query","category":"RAG Operations","meaning":"The total cost of serving one RAG request across retrieval, reranking, embeddings, and model generation.","example":"A team compares $0.002 and $0.02 pipelines to see whether the quality improvement justifies the extra cost.","related":["Token Usage","RAG Latency","RAG"],"aliases":["Cost per Request"],"whyItMatters":"A high-quality pipeline still needs sustainable economics at production traffic levels."}
+      {"term":"Cost per Query","category":"RAG Operations","meaning":"The total cost of serving one RAG request across retrieval, reranking, embeddings, and model generation.","example":"A team compares $0.002 and $0.02 pipelines to see whether the quality improvement justifies the extra cost.","related":["Token Usage","RAG Latency","RAG"],"aliases":["Cost per Request"],"whyItMatters":"A high-quality pipeline still needs sustainable economics at production traffic levels."},
+      {"term":"Next-Token Prediction","category":"Training","meaning":"A language-model objective that predicts the next token from the tokens that precede it.","example":"Given 'The capital of France is', a model assigns probabilities to possible next tokens such as 'Paris'.","related":["Token","Pretraining","Perplexity"],"aliases":["Autoregressive Next-Token Prediction"],"whyItMatters":"Next-token prediction is the core training objective behind many generative language models."},
+      {"term":"Conditional Entropy","category":"Foundations","meaning":"The remaining uncertainty in one random variable when another variable is known.","example":"Knowing the preceding words usually lowers uncertainty about the next word in a sentence.","related":["Conditional Mutual Information","Probabilistic Model","Loss Function"],"aliases":[],"whyItMatters":"Conditional entropy provides a formal way to measure how much uncertainty context removes."},
+      {"term":"Conditional Mutual Information","category":"Foundations","meaning":"The information shared by two random variables after accounting for a third variable.","example":"A researcher measures how much a retrieved passage reveals about an answer after controlling for the question.","related":["Conditional Entropy","Probabilistic Model","Representation Learning"],"aliases":["CMI"],"whyItMatters":"It helps analyze whether information remains predictive after known context is taken into account."},
+      {"term":"Domain-Adaptive Pretraining","category":"Training","meaning":"Continued pretraining of a general model on unlabeled text from a target domain.","example":"A general language model continues pretraining on biomedical papers before being adapted to clinical tasks.","related":["Pretraining","Transfer Learning","Domain-Specific Language Model"],"aliases":["DAPT"],"whyItMatters":"DAPT can teach a model the terminology and writing patterns of a specialized domain."},
+      {"term":"Task-Adaptive Pretraining","category":"Training","meaning":"Continued pretraining on unlabeled data drawn from the distribution of a specific downstream task.","example":"Before training a review classifier, a model continues pretraining on unlabeled reviews from the same dataset.","related":["Pretraining","Fine-tuning","Domain-Adaptive Pretraining"],"aliases":["TAPT"],"whyItMatters":"TAPT can adapt representations to a task's data distribution before supervised training."},
+      {"term":"Negative Transfer","category":"Training","meaning":"A decline in target-task performance caused by transferring knowledge that is unsuitable for the target.","example":"Features learned from formal news articles make a model worse at interpreting highly abbreviated chat messages.","related":["Transfer Learning","Fine-tuning","Domain-Adaptive Pretraining"],"aliases":[],"whyItMatters":"Transfer is not automatically beneficial when source and target tasks differ in important ways."},
+      {"term":"QLoRA","category":"Training","meaning":"Quantized Low-Rank Adaptation: a fine-tuning method that trains LoRA adapters while the base model is stored in a frozen 4-bit representation.","example":"A team fine-tunes a large language model on one GPU by loading its base weights in 4-bit form and training small adapters.","related":["LoRA","Quantization","PEFT"],"aliases":["Quantized Low-Rank Adaptation"],"whyItMatters":"QLoRA substantially lowers the memory required to fine-tune large models while preserving strong performance."},
+      {"term":"Prefix Tuning","category":"Training","meaning":"A parameter-efficient method that learns continuous task-specific vectors prepended to the hidden states processed by each transformer layer.","example":"A summarization system learns a small prefix while keeping the language model's original parameters frozen.","related":["PEFT","Prompt Tuning","Fine-tuning"],"aliases":["Prefix-Tuning"],"whyItMatters":"Prefix tuning adapts model behavior by training a small set of parameters instead of the full model."},
+      {"term":"Prompt Tuning","category":"Training","meaning":"A parameter-efficient method that learns continuous prompt embeddings while keeping the underlying model frozen.","example":"A classifier learns a short sequence of virtual prompt tokens rather than updating billions of model parameters.","related":["PEFT","Prefix Tuning","Prompt"],"aliases":["Soft Prompting","Soft Prompt"],"whyItMatters":"Prompt tuning enables lightweight task adaptation and makes it practical to store separate prompts for many tasks."},
+      {"term":"Activation Steering","category":"Models","meaning":"Changing model behavior at inference time by modifying selected internal activations along a chosen direction.","example":"A steering direction is added to a model's hidden state to make generated text more positive.","related":["Steering Vector","Representation Engineering","Inference"],"aliases":["Activation Engineering"],"whyItMatters":"Activation steering can alter model behavior without changing model weights or adding text to the prompt."},
+      {"term":"Contrastive Activation Addition","category":"Models","meaning":"An activation-steering method that derives a direction from contrasting examples and adds it to model activations during generation.","example":"Activations from honest and dishonest examples are contrasted to derive a vector that steers later answers toward honesty.","related":["Activation Steering","Steering Vector","Representation Engineering"],"aliases":["CAA"],"whyItMatters":"CAA offers a simple way to derive behavioral controls from positive and negative examples."},
+      {"term":"Conditional Activation Steering","category":"Models","meaning":"An activation-steering method that applies a steering vector only when an internal condition detector identifies a relevant input.","example":"A refusal vector activates for harmful requests but remains inactive for harmless questions.","related":["Activation Steering","Steering Vector","Contrastive Activation Addition"],"aliases":["CAST"],"whyItMatters":"Conditional steering can target specific situations while reducing unintended changes to unrelated behavior."},
+      {"term":"Activation Scaling","category":"Models","meaning":"A steering technique that multiplies selected activation components to strengthen or weaken an existing internal direction.","example":"A model's activation component associated with a concept is amplified to study how strongly it affects the output.","related":["Activation Steering","Steering Vector","Interpretability"],"aliases":[],"whyItMatters":"Scaling can test and control internal features without relying only on additive steering vectors."},
+      {"term":"Steering Vector","category":"Models","meaning":"A direction in a model's activation space that can be added, removed, or scaled to influence behavior.","example":"The difference between activations for contrasting examples becomes a vector applied during later generation.","related":["Activation Steering","Contrastive Activation Addition","Representation Engineering"],"aliases":["Control Vector"],"whyItMatters":"Steering vectors provide a reusable representation for targeted inference-time interventions."},
+      {"term":"Representation Engineering","category":"Models","meaning":"A framework for analyzing and controlling AI systems through population-level patterns in their internal representations.","example":"Researchers identify a direction associated with truthfulness and test how intervening on it changes model answers.","related":["Representation Learning","Activation Steering","Interpretability"],"aliases":["RepE"],"whyItMatters":"Representation engineering connects internal model analysis with practical methods for monitoring and control."},
+      {"term":"Conditional Computation","category":"Models","meaning":"A design in which only selected parts of a model run for a given input instead of executing the entire network.","example":"A mixture-of-experts model routes each token to a small subset of its expert networks.","related":["Mixture of Experts","Inference","Model Capacity"],"aliases":[],"whyItMatters":"Conditional computation can increase model capacity without proportionally increasing computation for every input."},
+      {"term":"Constrained Decoding","category":"Operations","meaning":"A generation process that restricts which tokens or sequences a model may produce so the output satisfies specified constraints.","example":"A decoder allows only tokens that keep the output valid under a JSON grammar.","related":["Structured Output","Token","Inference"],"aliases":["Grammar-Constrained Decoding"],"whyItMatters":"Constrained decoding can enforce structural or lexical requirements during generation rather than repairing invalid output afterward."},
+      {"term":"Pass@1","category":"Evaluation","meaning":"The probability that the first generated candidate passes the tests or correctness checks for a task.","example":"If a coding model's first solution passes for 42 of 100 problems, its measured Pass@1 is 42 percent.","related":["Evaluation","Benchmark","Correctness"],"aliases":["pass@1"],"whyItMatters":"Pass@1 measures single-attempt performance without relying on selecting among multiple generated candidates."},
+      {"term":"Domain-Specific Language Model","category":"Models","meaning":"A language model pretrained or adapted for the vocabulary, documents, and tasks of a particular field.","example":"A biomedical language model is trained on scientific articles so it can better represent clinical terminology.","related":["Domain-Adaptive Pretraining","Transfer Learning","Large Language Model (LLM)"],"aliases":["Domain-Specific Language Models"],"whyItMatters":"Specialized models can outperform general models on domain terminology and tasks, though they may generalize less broadly."},
+      {"term":"Model Pruning","category":"Operations","meaning":"Removing model weights, connections, or structures judged unnecessary to reduce model size or computation.","example":"A deployment pipeline removes low-importance weights before serving a model on a resource-constrained device.","related":["Quantization","Inference","Edge AI"],"aliases":["Neural Network Pruning","Weight Pruning"],"whyItMatters":"Pruning can make models cheaper to store and run, although excessive pruning can reduce accuracy."},
+      {"term":"Model Capacity","category":"Models","meaning":"A model's ability to represent or fit a range of functions and patterns.","example":"A larger network can fit a more complex training set but may also overfit when data is limited.","related":["Parameter","Overfitting","Scaling Laws"],"aliases":[],"whyItMatters":"Capacity must be balanced with data and regularization to learn useful patterns without underfitting or overfitting."}
     ];
 
     allEntries.push(...additionalEntries);
+    const distillationEntry = allEntries.find(entry => entry.term === "Distillation");
+    if (distillationEntry && !distillationEntry.aliases.includes("Knowledge Distillation")) {
+      distillationEntry.aliases.push("Knowledge Distillation");
+    }
 
     // Curated term-by-term references. Generic category fallbacks were intentionally removed
     // so every Read more link has direct context for the glossary term it accompanies.
     const topicReferences = {
+      "Next-Token Prediction": [
+        [
+          "Improving Language Understanding by Generative Pre-Training",
+          "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf"
+        ]
+      ],
+      "Conditional Entropy": [
+        [
+          "Elements of Information Theory: Entropy, Relative Entropy and Mutual Information",
+          "https://www.cs.columbia.edu/~vh/courses/LexicalSemantics/Association/Cover&Thomas-Ch2.pdf"
+        ]
+      ],
+      "Conditional Mutual Information": [
+        [
+          "Elements of Information Theory: Entropy, Relative Entropy and Mutual Information",
+          "https://www.cs.columbia.edu/~vh/courses/LexicalSemantics/Association/Cover&Thomas-Ch2.pdf"
+        ]
+      ],
+      "Domain-Adaptive Pretraining": [
+        [
+          "Don't Stop Pretraining: Adapt Language Models to Domains and Tasks",
+          "https://arxiv.org/abs/2004.10964"
+        ]
+      ],
+      "Task-Adaptive Pretraining": [
+        [
+          "Don't Stop Pretraining: Adapt Language Models to Domains and Tasks",
+          "https://arxiv.org/abs/2004.10964"
+        ]
+      ],
+      "Negative Transfer": [
+        [
+          "A Survey on Negative Transfer",
+          "https://arxiv.org/abs/2009.00909"
+        ]
+      ],
+      "QLoRA": [
+        [
+          "QLoRA: Efficient Finetuning of Quantized LLMs",
+          "https://arxiv.org/abs/2305.14314"
+        ]
+      ],
+      "Prefix Tuning": [
+        [
+          "Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+          "https://arxiv.org/abs/2101.00190"
+        ]
+      ],
+      "Prompt Tuning": [
+        [
+          "The Power of Scale for Parameter-Efficient Prompt Tuning",
+          "https://arxiv.org/abs/2104.08691"
+        ]
+      ],
+      "Activation Steering": [
+        [
+          "Steering Language Models With Activation Engineering",
+          "https://arxiv.org/abs/2308.10248"
+        ]
+      ],
+      "Contrastive Activation Addition": [
+        [
+          "Steering Llama 2 via Contrastive Activation Addition",
+          "https://arxiv.org/abs/2312.06681"
+        ]
+      ],
+      "Conditional Activation Steering": [
+        [
+          "Programming Refusal with Conditional Activation Steering",
+          "https://arxiv.org/abs/2409.05907"
+        ]
+      ],
+      "Activation Scaling": [
+        [
+          "Activation Scaling for Steering and Interpreting Language Models",
+          "https://aclanthology.org/2024.findings-emnlp.479/"
+        ]
+      ],
+      "Steering Vector": [
+        [
+          "Steering Llama 2 via Contrastive Activation Addition",
+          "https://arxiv.org/abs/2312.06681"
+        ]
+      ],
+      "Representation Engineering": [
+        [
+          "Representation Engineering: A Top-Down Approach to AI Transparency",
+          "https://arxiv.org/abs/2310.01405"
+        ]
+      ],
+      "Conditional Computation": [
+        [
+          "Estimating or Propagating Gradients Through Stochastic Neurons for Conditional Computation",
+          "https://arxiv.org/abs/1308.3432"
+        ]
+      ],
+      "Constrained Decoding": [
+        [
+          "Lexically Constrained Decoding for Sequence Generation Using Grid Beam Search",
+          "https://aclanthology.org/P17-1141/"
+        ]
+      ],
+      "Pass@1": [
+        [
+          "Evaluating Large Language Models Trained on Code",
+          "https://arxiv.org/abs/2107.03374"
+        ]
+      ],
+      "Domain-Specific Language Model": [
+        [
+          "SciBERT: A Pretrained Language Model for Scientific Text",
+          "https://arxiv.org/abs/1903.10676"
+        ]
+      ],
+      "Model Pruning": [
+        [
+          "Learning both Weights and Connections for Efficient Neural Networks",
+          "https://arxiv.org/abs/1506.02626"
+        ]
+      ],
+      "Model Capacity": [
+        [
+          "Deep Learning: Capacity, Overfitting and Underfitting",
+          "https://www.deeplearningbook.org/contents/ml.html"
+        ]
+      ],
       "Agent": [
         [
           "Academic survey: LLM-based autonomous agents",
