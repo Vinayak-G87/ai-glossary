@@ -1,6 +1,6 @@
 # AI Glossary
 
-A comprehensive static AI reference with **226 concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
+A comprehensive static AI reference with **247 concept terms** across foundations, models, training, agents, security, evaluation, operations, and governance. It has no dependencies, network requests, or tracking.
 
 ## Website
 
@@ -16,7 +16,7 @@ Features:
 
 ## Glossary Content
 
-The published web glossary contains **226 concept terms** including:
+The published web glossary contains **247 concept terms** including:
 - **Foundations:** AI, Machine Learning, Deep Learning, Computer Vision, NLP, Robotics, AGI, ANI
 - **Models:** Transformers, GANs, Vision Transformers, Diffusion, Embeddings, Knowledge Graphs
 - **Training:** Supervised, Unsupervised, Self-Supervised, Transfer Learning, Fine-tuning, RLHF, DPO
